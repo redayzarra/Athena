@@ -1,11 +1,22 @@
 import { ModeToggle } from "@/components/ui/ModeToggle";
-import { UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { UserButton, auth } from "@clerk/nextjs";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+  const isAuth = !!userId;
+
   return (
-    <div>
-      <UserButton afterSignOutUrl="/" />
-      <ModeToggle />
+    <div className="flex">
+      {/* {!isAuth ? (
+        <Link href="/sign-in">
+          <Button variant="ghost">Sign In</Button>
+        </Link>
+      ) : (
+        <UserButton afterSignOutUrl="/" />
+      )}
+      <ModeToggle /> */}
     </div>
   );
 }
