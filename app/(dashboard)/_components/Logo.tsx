@@ -1,8 +1,14 @@
 import Image from "next/image";
-import React from "react";
 
-const Logo = () => {
-  return <Image height={80} width={80} alt="logo" src="/logo.svg" />;
-};
+export const Logo = () => {
+  const logoSize = 100;
 
-export default Logo;
+  return (
+    <Image
+      height={logoSize}
+      width={logoSize}
+      alt="logo"
+      src="/whitecutelogo.svg"
+    />
+  )
+}
