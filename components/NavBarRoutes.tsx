@@ -1,16 +1,14 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
-import { Button } from "./ui/button";
-import { MdLogout } from "react-icons/md";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MdLogout, MdOutlineCreate } from "react-icons/md";
 import { ModeToggle } from "./ModeToggle";
+import { Button } from "./ui/button";
 
 const NavBarRoutes = () => {
   const pathname = usePathname();
-  const router = useRouter();
 
   const isTeacherPage = pathname?.startsWith("/teacher");
   const isPlayerPage = pathname?.includes("/chapter");
@@ -18,13 +16,16 @@ const NavBarRoutes = () => {
   return (
     <div className="flex gap-x-2 ml-auto items-center">
       {isTeacherPage || isPlayerPage ? (
-        <Button>
-          <MdLogout />
-          Exit
-        </Button>
+        <Link href="/">
+          <Button size="sm" variant="outline">
+            <MdLogout className="mr-1" />
+            Exit
+          </Button>
+        </Link>
       ) : (
         <Link href="/teacher/courses">
           <Button size="sm" variant="outline">
+            <MdOutlineCreate className="mr-1" />
             Create
           </Button>
         </Link>

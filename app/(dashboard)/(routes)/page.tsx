@@ -2,6 +2,7 @@
 const page = () => {
   return (
     <div>
+      Hi
     </div>
   )
 }
