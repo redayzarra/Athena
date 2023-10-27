@@ -1,9 +1,8 @@
 import React from "react";
-import SideBar from "./_components/SideBar";
 import NavBar from "./_components/NavBar";
+import SideBar from "./_components/SideBar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const sideBarWidth = 56;
   return (
     <div className="h-full">
       <div className="h-[60px] md:pl-56 fixed w-full">
@@ -16,5 +15,4 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
-
 export default DashboardLayout;
