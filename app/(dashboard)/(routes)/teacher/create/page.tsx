@@ -38,7 +38,12 @@ const CreatePage = () => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    try {
+      const response = await axios.post("/api/course", values);
+      router.push(`/teacher/courses/${response.data.id}`);
+    } catch {
+      toast.error("Something went wrong.");
+    }
   };
 
   return (
@@ -46,7 +51,8 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-sm text-muted-foreground">
-          What would you like to name your course? You can always change this later.
+          What would you like to name your course? You can always change this
+          later.
         </p>
         <Form {...form}>
           <form
@@ -74,7 +80,7 @@ const CreatePage = () => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href="/">
+              <Link href="/teacher/courses">
                 <Button type="button" variant="ghost">
                   Cancel
                 </Button>
