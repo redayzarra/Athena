@@ -48,15 +48,15 @@ const TitleForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course Updated!",
-        description: "The course details have been successfully saved.",
+        title: "Course Title Updated!",
+        description: "The course title has been successfully saved.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your details.",
+        description: "There was a problem submitting your title.",
         variant: "destructive",
       });
     }
