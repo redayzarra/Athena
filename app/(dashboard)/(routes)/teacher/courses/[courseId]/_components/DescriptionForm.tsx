@@ -17,19 +17,21 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Props {
   initialData: {
-    title: string;
+    description: string | null;
   };
   courseId: string;
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required." }),
+  description: z.string().min(1, { message: "Description is required." }),
 });
 
-const TitleForm = ({ initialData, courseId }: Props) => {
+const DescriptionForm = ({ initialData, courseId }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -37,7 +39,9 @@ const TitleForm = ({ initialData, courseId }: Props) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      description: initialData.description ?? "", // Use '??' to fallback to an empty string if `null`
+    },
   });
 
   // Initialize the useToast hook
@@ -48,15 +52,15 @@ const TitleForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course title updated!",
-        description: "The course title has been successfully saved.",
+        title: "Course description updated!",
+        description: "The course description has been successfully saved.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your title.",
+        description: "There was a problem submitting your description.",
         variant: "destructive",
       });
     }
@@ -65,7 +69,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Title
+        Description
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -85,13 +89,13 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           >
             <FormField
               control={form.control}
-              name="title"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
+                    <Textarea
                       disabled={isSubmitting}
-                      placeholder="e.g 'Beginners Guide to Premiere Pro'"
+                      placeholder="e.g 'Master the basics of video editing with Premiere Pro! This guide is...'"
                       {...field}
                     />
                   </FormControl>
@@ -108,10 +112,17 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p className="text-md mt-2">{initialData.title}</p>
+        <p
+          className={cn(
+            "text-md mt-2",
+            !initialData.description && "text-muted-foreground italic"
+          )}
+        >
+          {initialData.description || "No description"}
+        </p>
       )}
     </div>
   );
 };
 
-export default TitleForm;
+export default DescriptionForm;
