@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import * as z from "zod";
 import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -15,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   initialData: {
@@ -31,14 +33,33 @@ const TitleForm = ({ initialData, courseId }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
 
+  // Initialize the useToast hook
+  const { toast } = useToast();
+
   const { isSubmitting, isValid } = form.formState;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast({
+        title: "Course Updated!",
+        description: "The course details have been successfully saved.",
+      });
+      toggleEdit();
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: "Something went wrong.",
+        description: "There was a problem submitting your details.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
