@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Form,
@@ -35,15 +35,25 @@ const CreatePage = () => {
     },
   });
 
+  // Initialize the useToast hook
+  const { toast } = useToast();
+
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.post("/api/courses", values);
       router.push(`/teacher/courses/${response.data.id}`);
-      toast.success("Course created!");
+      toast({
+        title: "Course created!",
+        description: "Complete the course details to share your knowledge.",
+      });
     } catch {
-      toast.error("Something went wrong.");
+      toast({
+        title: "Something went wrong.",
+        description: "There was a problem creating your course.",
+        variant: "destructive", // if you want the toast to have a destructive style
+      });
     }
   };
 

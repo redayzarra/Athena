@@ -1,5 +1,5 @@
-import { ToastProvider } from "@/components/providers/toaster-provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -27,8 +27,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ToastProvider />
-            {children}
+            <Toaster />
+            <main>{children}</main>
           </ThemeProvider>
         </body>
       </html>
