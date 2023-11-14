@@ -2,18 +2,7 @@
 
 import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
 import axios from "axios";
@@ -42,7 +31,7 @@ const ImageForm = ({ initialData, courseId }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imageUrl: initialData?.description ?? "",
+      imageUrl: initialData?.imageUrl ?? "",
     },
   });
 
@@ -60,11 +49,12 @@ const ImageForm = ({ initialData, courseId }: Props) => {
       toggleEdit();
       router.refresh();
     } catch (error) {
-      toast({
-        title: "Something went wrong.",
-        description: "There was a problem uploading your image.",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Something went wrong.",
+      //   description:
+      //     "There was a problem uploading your image. Make sure your image is less than 4MB.",
+      //   variant: "destructive",
+      // });
     }
   };
 
@@ -93,8 +83,7 @@ const ImageForm = ({ initialData, courseId }: Props) => {
         </Button>
       </div>
       {isEditing ? (
-        <div className="">
-          <Label htmlFor="picture">Picture</Label>
+        <div className="bg-background rounded-md">
           <FileUpload
             endpoint="courseImage"
             onChange={(url) => {
@@ -103,16 +92,15 @@ const ImageForm = ({ initialData, courseId }: Props) => {
               }
             }}
           />
-          <Input id="picture" type="file" />
         </div>
       ) : !initialData.imageUrl ? (
-        <div className="flex items-center justify-center h-60 rounded-md bg-background">
+        <div className="flex items-center justify-center h-[190px] rounded-md bg-background">
           <ImageIcon className="h-10 w-10 text-foreground" />
         </div>
       ) : (
         <div className="relative aspect-video mt-2">
           <Image
-            alt="upload"
+            alt="Course Image"
             fill
             className="object-cover rounded-md"
             src={initialData.imageUrl}

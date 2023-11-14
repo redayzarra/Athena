@@ -21,7 +21,8 @@ const FileUpload = ({ onChange, endpoint }: Props) => {
       onUploadError={(error: Error) => {
         toast({
           title: "Something went wrong.",
-          description: "There was a problem uploading your file.",
+          description:
+            "There was a problem uploading your image. Make sure your image is less than 4MB.",
           variant: "destructive",
         });
       }}

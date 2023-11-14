@@ -39,7 +39,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData.description ?? "", // Use '??' to fallback to an empty string if `null`
+      description: initialData.description ?? "",
     },
   });
 
