@@ -14,7 +14,7 @@ export async function PATCH(
     }
 
     const values = await request.json();
-    const { title, description } = values;
+    const { title, description, imageUrl } = values;
     const { courseId } = params;
 
     const course = await db.course.update({
@@ -25,6 +25,7 @@ export async function PATCH(
       data: {
         title,
         description,
+        imageUrl,
       },
     });
 
