@@ -6,6 +6,9 @@ import TitleForm from "./_components/TitleForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import CategoryForm from "./_components/CategoryForm";
+import { FaListCheck } from "react-icons/fa6";
+import { AiOutlineDollar } from "react-icons/ai";
+
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -49,7 +52,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">Course setup</h1>
+          <h1 className="text-2xl font-medium">Course Setup</h1>
           <span className="text-sm text-muted-foreground">
             Complete all fields {completionText}
           </span>
@@ -73,6 +76,21 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               value: category.id,
             }))}
           />
+        </div>
+        <div className="space-y-6 bg-primary">
+          <div>
+            <div className="flex items-center gap-x-2">
+              <FaListCheck size="22" />
+              <h2 className="text-xl">Course Chapters</h2>
+            </div>
+            <div>TODO: Chapters</div>
+            <div className="flex items-center gap-x-2">
+              <div className="-ml-[2px]">
+                <AiOutlineDollar  size="28" />
+              </div>
+              <h2 className="text-xl">Price your course</h2>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import ComboBox from "@/components/ui/combobox";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -98,6 +99,9 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
                   <FormControl>
                     <ComboBox options={options} {...field} />
                   </FormControl>
+                  <FormDescription>
+                  Choose a category for your course.
+                  </FormDescription>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
               )}
