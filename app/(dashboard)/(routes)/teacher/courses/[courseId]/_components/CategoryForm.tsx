@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import ComboBox from "@/components/ui/combobox";
 import {
   Form,
   FormControl,
@@ -8,7 +9,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,13 +23,14 @@ import * as z from "zod";
 interface Props {
   initialData: Course;
   courseId: string;
+  options: { label: string; value: string }[];
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, { message: "Description is required." }),
+  categoryId: z.string().min(1),
 });
 
-const DescriptionForm = ({ initialData, courseId }: Props) => {
+const CategoryForm = ({ initialData, courseId, options }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -38,7 +39,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData.description ?? "",
+      categoryId: initialData.categoryId ?? "",
     },
   });
 
@@ -50,24 +51,28 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course description updated!",
-        description: "The course description has been saved.",
+        title: "Course category updated!",
+        description: "The course category has been successfully saved.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your description.",
+        description: "There was a problem adding to this category.",
         variant: "destructive",
       });
     }
   };
 
+  const selectedOption = options.find(
+    (option) => option.value === initialData.categoryId
+  );
+
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Description
+        Category
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -87,15 +92,11 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
           >
             <FormField
               control={form.control}
-              name="description"
+              name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g 'Master the basics of video editing with Premiere Pro! This guide is...'"
-                      {...field}
-                    />
+                    <ComboBox options={options} {...field} />
                   </FormControl>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
@@ -113,14 +114,14 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
         <p
           className={cn(
             "text-md mt-2",
-            !initialData.description && "text-muted-foreground italic"
+            !initialData.categoryId && "text-muted-foreground italic"
           )}
         >
-          {initialData.description || "No description"}
+          {selectedOption?.label || "No category"}
         </p>
       )}
     </div>
   );
 };
 
-export default DescriptionForm;
+export default CategoryForm;

@@ -29,7 +29,7 @@ const SideBarItem = ({ icon: Icon, label, href }: Props) => {
       onClick={onClick}
       type="button"
       className={cn(
-        "flex items-center gap-x-2 mx-4 mb-2 rounded-lg text-muted-foreground text-sm font-[500] pl-9 transition-all hover:text-foreground hover:bg-foreground/10",
+        "flex items-center gap-x-2 mx-4 mb-2 rounded-lg text-muted-foreground text-sm font-[500] pl-9 transition-all hover:text-foreground hover:bg-card",
         isActive &&
           "text-background bg-foreground hover:text-background hover:bg-foreground"
       )}
