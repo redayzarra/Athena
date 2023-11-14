@@ -1,63 +1,76 @@
 "use client";
 
-import React, { useState } from "react";
-import * as z from "zod";
-import axios from "axios";
-import { useToast } from "@/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { formatPrice } from "@/lib/formatPrice";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Course } from "@prisma/client";
+import axios from "axios";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
+// The props for this component
 interface Props {
-  initialData: {
-    title: string;
-  };
+  initialData: Course;
   courseId: string;
 }
 
+// The form schema to verify the input
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required." }),
+  price: z.coerce.number(),
 });
 
-const TitleForm = ({ initialData, courseId }: Props) => {
+const PriceForm = ({ initialData, courseId }: Props) => {
+  // Editing variable to toggle the component
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
+  // Initialize the useToast hook and router
+  const { toast } = useToast();
   const router = useRouter();
 
+  // Initialize form and submitting variable
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      price: initialData.price || undefined,
+    },
   });
-
-  // Initialize the useToast hook
-  const { toast } = useToast();
-
   const { isSubmitting, isValid } = form.formState;
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Convert the price to a string with two decimal places
+    const formattedPrice = Number(values.price).toFixed(2);
+
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
+      await axios.patch(`/api/courses/${courseId}`, {
+        ...values,
+        price: formattedPrice,
+      });
       toast({
-        title: "Course title updated!",
-        description: "The course title has been successfully saved.",
+        title: "Course price updated!",
+        description: "The course price has been saved.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your title.",
+        description: "There was a problem updating the price.",
         variant: "destructive",
       });
     }
@@ -66,7 +79,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Title
+        Pricing
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -86,18 +99,21 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           >
             <FormField
               control={form.control}
-              name="title"
+              name="price"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Dollars</FormLabel>
                   <FormControl>
                     <Input
+                      type="number"
+                      step="0.1"
                       disabled={isSubmitting}
-                      placeholder="e.g 'Beginners Guide to Premiere Pro'"
+                      placeholder="e.g. '5.00'"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    This is the title of your course.
+                    This is the price of your course.
                   </FormDescription>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
@@ -112,10 +128,17 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p className="text-md mt-2">{initialData.title}</p>
+        <p
+          className={cn(
+            "text-md mt-2",
+            !initialData.price && "text-muted-foreground italic"
+          )}
+        >
+          {initialData.price ? formatPrice(initialData.price) : "Free"}
+        </p>
       )}
     </div>
   );
 };
 
-export default TitleForm;
+export default PriceForm;

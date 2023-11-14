@@ -8,7 +8,7 @@ import ImageForm from "./_components/ImageForm";
 import CategoryForm from "./_components/CategoryForm";
 import { FaListCheck } from "react-icons/fa6";
 import { AiOutlineDollar } from "react-icons/ai";
-
+import PriceForm from "./_components/PriceForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -77,7 +77,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             }))}
           />
         </div>
-        <div className="space-y-6 bg-primary">
+        <div className="space-y-6">
           <div>
             <div className="flex items-center gap-x-2">
               <FaListCheck size="22" />
@@ -86,10 +86,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <div>TODO: Chapters</div>
             <div className="flex items-center gap-x-2">
               <div className="-ml-[2px]">
-                <AiOutlineDollar  size="28" />
+                <AiOutlineDollar size="28" />
               </div>
               <h2 className="text-xl">Price your course</h2>
             </div>
+            <PriceForm initialData={course} courseId={course.id} />
           </div>
         </div>
       </div>

@@ -4,6 +4,10 @@ const database = new PrismaClient();
 
 async function main() {
   try {
+    // Delete all existing categories
+    await database.category.deleteMany({});
+
+    // Insert the new set of categories
     await database.category.createMany({
       data: [
         { name: "Computer Science" },
@@ -18,24 +22,13 @@ async function main() {
         { name: "Biology" },
         { name: "Engineering" },
         { name: "Language Learning" },
-        { name: "Environmental Science" },
-        { name: "Political Science" },
-        { name: "Psychology" },
-        { name: "Economics" },
-        { name: "Health & Fitness" },
-        { name: "Culinary Arts" },
-        { name: "Performing Arts" },
-        { name: "Astronomy" },
-        { name: "Sociology" },
-        { name: "Anthropology" },
-        { name: "Education" },
-        { name: "Law" },
       ],
+      skipDuplicates: true, // This ensures that duplicate records are skipped
     });
 
-    console.log("Success");
+    console.log("Categories have been reset and seeded successfully.");
   } catch (error) {
-    console.log("Error seeding the database categories", error);
+    console.error("Error seeding the database categories", error);
   } finally {
     await database.$disconnect();
   }

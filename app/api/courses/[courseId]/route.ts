@@ -7,33 +7,41 @@ export async function PATCH(
   { params }: { params: { courseId: string } }
 ) {
   try {
-    // Protecting route through authentication
+    // Protecting route through user authentication
     const { userId } = auth();
     if (!userId) {
       return NextResponse.json({}, { status: 401 });
     }
 
     const values = await request.json();
-    const { title, description, imageUrl, categoryId, price, isPublished } =
-      values;
-    const { courseId } = params;
 
+    // Parse the price string to a float
+    let { price } = values;
+    price = parseFloat(price);
+
+    // Set price as null if it is not a number
+    if (isNaN(price)) {
+      price = null;
+    } else {
+      // Round the price to two decimal places if it is a number
+      price = Math.round((price + Number.EPSILON) * 100) / 100;
+    }
+
+    const { courseId } = params;
     const course = await db.course.update({
       where: {
         id: courseId,
         userId,
       },
       data: {
-        title,
-        description,
-        imageUrl,
-        categoryId,
-        price,
-        isPublished,
+        ...values,
+        price, // Use the rounded price
       },
     });
 
     return NextResponse.json(course);
+
+    // Error handling
   } catch (error) {
     console.log("[COURSE_ID]", error);
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
