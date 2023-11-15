@@ -73,11 +73,11 @@ const TitleForm = ({ initialData, courseId }: Props) => {
         </span>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <p className="text-muted-foreground">Cancel</p>
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2" />
-              Edit
+              <PencilIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+              <p className="text-muted-foreground">Edit</p>
             </>
           )}
         </Button>

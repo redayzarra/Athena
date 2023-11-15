@@ -56,23 +56,21 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-4xl font-black">Course Setup</h1>
-          <span className="text-sm font-bold text-muted-foreground flex items-center gap-x-2">
-            {completedFields === totalFields ? (
-              <div className="text-primary flex items-center gap-x-2">
-                <FaCircleCheck />
-                <p className="text-muted-foreground text-base">
-                  Completed all fields {completionText}
-                </p>
-              </div>
-            ) : (
-              <div className="text-primary flex items-center gap-x-2">
-                <FaCircleHalfStroke />
-                <p className="text-muted-foreground text-base">
-                  Complete required fields {completionText}
-                </p>
-              </div>
-            )}
-          </span>
+          {completedFields === totalFields ? (
+            <div className="font-medium text-primary flex items-center gap-x-2">
+              <FaCircleCheck />
+              <p className="text-muted-foreground text-base">
+                Completed all fields {completionText}
+              </p>
+            </div>
+          ) : (
+            <div className="font-medium text-primary flex items-center gap-x-2">
+              <FaCircleHalfStroke />
+              <p className="text-muted-foreground text-base">
+                Complete required fields {completionText}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -109,7 +107,9 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               <div className="-ml-[2px] -mr-[3px] text-foreground">
                 <AiOutlineDollar size="28" />
               </div>
-              <h2 className="text-xl font-black text-foreground">Course Pricing</h2>
+              <h2 className="text-xl font-black text-foreground">
+                Course Pricing
+              </h2>
             </div>
             <PriceForm initialData={course} courseId={course.id} />
           </div>

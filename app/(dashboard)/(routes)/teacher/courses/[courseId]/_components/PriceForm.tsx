@@ -82,11 +82,11 @@ const PriceForm = ({ initialData, courseId }: Props) => {
         <p className="text-base font-medium text-muted-foreground">Pricing</p>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <p className="text-muted-foreground">Cancel</p>
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2" />
-              Edit
+              <PencilIcon className="h-4 w-4 mr-2 text-muted-foreground" />
+              <p className="text-muted-foreground">Edit</p>
             </>
           )}
         </Button>
