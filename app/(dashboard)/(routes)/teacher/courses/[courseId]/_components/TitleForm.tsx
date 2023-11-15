@@ -71,13 +71,13 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           {isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
           <p className="text-muted-foreground">Title</p>
         </span>
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button onClick={toggleEdit} size="sm" variant="ghost" className="text-muted-foreground">
           {isEditing ? (
-            <p className="text-muted-foreground">Cancel</p>
+            "Cancel"
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2 text-muted-foreground" />
-              <p className="text-muted-foreground">Edit</p>
+              <PencilIcon className="h-4 w-4 mr-2" />
+              Edit
             </>
           )}
         </Button>

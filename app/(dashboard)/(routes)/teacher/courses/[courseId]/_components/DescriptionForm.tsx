@@ -77,13 +77,18 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
           )}
           <p className="text-muted-foreground">Description</p>
         </span>
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button
+          size="sm"
+          onClick={toggleEdit}
+          variant="ghost"
+          className="text-muted-foreground"
+        >
           {isEditing ? (
-            <p className="text-muted-foreground">Cancel</p>
+            "Cancel"
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2 text-muted-foreground" />
-              <p className="text-muted-foreground">Edit</p>
+              <PencilIcon className="h-4 w-4 mr-2" />
+              Edit
             </>
           )}
         </Button>

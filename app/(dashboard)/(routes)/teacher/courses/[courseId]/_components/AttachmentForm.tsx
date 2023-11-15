@@ -21,7 +21,7 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, { message: "Image is required." }),
 });
 
-const ImageForm = ({ initialData, courseId }: Props) => {
+const AttachmentForm = ({ initialData, courseId }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -46,14 +46,14 @@ const ImageForm = ({ initialData, courseId }: Props) => {
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center mb-2 justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
-          {!initialData.imageUrl || isEditing ? (
-            <FaCircleHalfStroke />
-          ) : (
-            <FaCircleCheck />
-          )}
-          <p className="text-muted-foreground">Image</p>
+          <p className="text-muted-foreground">Attachments</p>
         </span>
-        <Button onClick={toggleEdit} size="sm" variant="ghost" className="text-muted-foreground">
+        <Button
+          onClick={toggleEdit}
+          size="sm"
+          variant="ghost"
+          className="text-muted-foreground"
+        >
           {isEditing ? (
             "Cancel"
           ) : (
@@ -105,4 +105,4 @@ const ImageForm = ({ initialData, courseId }: Props) => {
   );
 };
 
-export default ImageForm;
+export default AttachmentForm;

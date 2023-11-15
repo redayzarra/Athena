@@ -80,13 +80,18 @@ const PriceForm = ({ initialData, courseId }: Props) => {
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         <p className="text-base font-medium text-muted-foreground">Pricing</p>
-        <Button onClick={toggleEdit} variant="ghost">
+        <Button
+          size="sm"
+          onClick={toggleEdit}
+          variant="ghost"
+          className="text-muted-foreground"
+        >
           {isEditing ? (
-            <p className="text-muted-foreground">Cancel</p>
+            "Cancel"
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2 text-muted-foreground" />
-              <p className="text-muted-foreground">Edit</p>
+              <PencilIcon className="h-4 w-4 mr-2" />
+              Edit
             </>
           )}
         </Button>
