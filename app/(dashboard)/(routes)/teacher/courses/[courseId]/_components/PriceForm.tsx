@@ -79,7 +79,7 @@ const PriceForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Pricing
+        <p className="text-base font-medium text-muted-foreground">Pricing</p>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -102,7 +102,7 @@ const PriceForm = ({ initialData, courseId }: Props) => {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dollars</FormLabel>
+                  <FormLabel className="font-semibold">Dollars</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -130,8 +130,8 @@ const PriceForm = ({ initialData, courseId }: Props) => {
       ) : (
         <p
           className={cn(
-            "text-md mt-2",
-            !initialData.price && "text-muted-foreground italic"
+            "text-xl font-black text-foreground mt-2",
+            !initialData.price && "text-foreground italic"
           )}
         >
           {initialData.price ? formatPrice(initialData.price) : "Free"}

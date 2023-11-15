@@ -19,6 +19,7 @@ import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
 interface Props {
@@ -73,7 +74,14 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Category
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {!initialData.categoryId || isEditing ? (
+            <FaCircleHalfStroke />
+          ) : (
+            <FaCircleCheck />
+          )}
+          <p className="text-muted-foreground">Category</p>
+        </span>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -100,7 +108,7 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
                     <ComboBox options={options} {...field} />
                   </FormControl>
                   <FormDescription>
-                  Choose a category for your course.
+                    Choose a category for your course.
                   </FormDescription>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
@@ -117,8 +125,9 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
       ) : (
         <p
           className={cn(
-            "text-md mt-2",
-            !initialData.categoryId && "text-muted-foreground italic"
+            "text-xl font-bold mt-2",
+            !initialData.categoryId &&
+              "text-base text-foreground font-normal italic"
           )}
         >
           {selectedOption?.label || "No category"}

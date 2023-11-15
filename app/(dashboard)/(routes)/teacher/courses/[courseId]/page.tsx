@@ -2,13 +2,17 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
-import TitleForm from "./_components/TitleForm";
+import { AiOutlineDollar } from "react-icons/ai";
+import {
+  FaCircleCheck,
+  FaCircleHalfStroke,
+  FaListCheck,
+} from "react-icons/fa6";
+import CategoryForm from "./_components/CategoryForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
-import CategoryForm from "./_components/CategoryForm";
-import { FaListCheck } from "react-icons/fa6";
-import { AiOutlineDollar } from "react-icons/ai";
 import PriceForm from "./_components/PriceForm";
+import TitleForm from "./_components/TitleForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -40,7 +44,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.title,
     course.description,
     course.imageUrl,
-    course.price,
     course.categoryId,
   ];
 
@@ -52,18 +55,34 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">Course Setup</h1>
-          <span className="text-sm text-muted-foreground">
-            Complete all fields {completionText}
+          <h1 className="text-4xl font-black">Course Setup</h1>
+          <span className="text-sm font-bold text-muted-foreground flex items-center gap-x-2">
+            {completedFields === totalFields ? (
+              <div className="text-primary flex items-center gap-x-2">
+                <FaCircleCheck />
+                <p className="text-muted-foreground text-base">
+                  Completed all fields {completionText}
+                </p>
+              </div>
+            ) : (
+              <div className="text-primary flex items-center gap-x-2">
+                <FaCircleHalfStroke />
+                <p className="text-muted-foreground text-base">
+                  Complete required fields {completionText}
+                </p>
+              </div>
+            )}
           </span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div className="">
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 text-foreground">
             <LayoutDashboard />
-            <h2 className="text-xl">Customize your course</h2>
+            <h2 className="text-xl font-black text-foreground">
+              Customize Course
+            </h2>
           </div>
           <TitleForm initialData={course} courseId={course.id} />
           <DescriptionForm initialData={course} courseId={course.id} />
@@ -79,16 +98,18 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
         </div>
         <div className="space-y-6">
           <div>
-            <div className="flex items-center gap-x-2">
+            <div className="flex text-foreground items-center gap-x-2">
               <FaListCheck size="22" />
-              <h2 className="text-xl">Course Chapters</h2>
+              <h2 className="text-xl font-black text-foreground">
+                Course Chapters
+              </h2>
             </div>
             <div>TODO: Chapters</div>
             <div className="flex items-center gap-x-2">
-              <div className="-ml-[2px]">
+              <div className="-ml-[2px] -mr-[3px] text-foreground">
                 <AiOutlineDollar size="28" />
               </div>
-              <h2 className="text-xl">Price your course</h2>
+              <h2 className="text-xl font-black text-foreground">Course Pricing</h2>
             </div>
             <PriceForm initialData={course} courseId={course.id} />
           </div>

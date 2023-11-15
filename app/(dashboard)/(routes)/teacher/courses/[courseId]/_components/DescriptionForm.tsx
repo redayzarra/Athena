@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -18,6 +19,7 @@ import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
 interface Props {
@@ -67,7 +69,10 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Description
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {!initialData.description || isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
+          <p className="text-muted-foreground">Description</p>
+        </span>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -97,6 +102,9 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    Provide a brief description of your course
+                  </FormDescription>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
               )}
@@ -112,8 +120,8 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
       ) : (
         <p
           className={cn(
-            "text-md mt-2",
-            !initialData.description && "text-muted-foreground italic"
+            "text-md text-foreground mt-2",
+            !initialData.description && "text-foreground italic"
           )}
         >
           {initialData.description || "No description"}

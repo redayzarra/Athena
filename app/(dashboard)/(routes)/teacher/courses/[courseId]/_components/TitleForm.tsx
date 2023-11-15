@@ -1,11 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import * as z from "zod";
-import axios from "axios";
-import { useToast } from "@/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,9 +10,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
+import * as z from "zod";
 
 interface Props {
   initialData: {
@@ -66,7 +67,10 @@ const TitleForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
-        Title
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
+          <p className="text-muted-foreground">Title</p>
+        </span>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -112,7 +116,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p className="text-md mt-2">{initialData.title}</p>
+        <p className="text-2xl font-bold mt-2">{initialData.title}</p>
       )}
     </div>
   );

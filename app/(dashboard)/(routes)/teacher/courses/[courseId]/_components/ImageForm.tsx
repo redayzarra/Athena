@@ -9,6 +9,7 @@ import { ImageIcon, PencilIcon, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
 interface Props {
@@ -44,7 +45,14 @@ const ImageForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center mb-2 justify-between">
-        Image
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {!initialData.imageUrl || isEditing ? (
+            <FaCircleHalfStroke />
+          ) : (
+            <FaCircleCheck />
+          )}
+          <p className="text-muted-foreground">Image</p>
+        </span>
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -75,7 +83,7 @@ const ImageForm = ({ initialData, courseId }: Props) => {
               }
             }}
           />
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-bold">
             16:9 aspect ratio recommended
           </p>
         </div>
