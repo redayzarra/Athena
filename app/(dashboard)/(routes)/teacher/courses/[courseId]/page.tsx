@@ -30,6 +30,13 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     where: {
       id: courseId,
     },
+    include: {
+      attachments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
   });
   if (!course) {
     return redirect("/courses");

@@ -52,15 +52,15 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course description updated!",
-        description: "The course description has been saved.",
+        title: "Description Updated!",
+        description: "Your course has been successfully updated with the new description.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your description.",
+        description: "Unable to update the description. Please check your connection and try again.",
         variant: "destructive",
       });
     }
@@ -127,12 +127,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p
-          className={cn(
-            "text-md text-foreground mt-2",
-            !initialData.description && "text-foreground italic"
-          )}
-        >
+        <p className={cn("text-md mt-2", !initialData.description && "italic")}>
           {initialData.description || "No description"}
         </p>
       )}

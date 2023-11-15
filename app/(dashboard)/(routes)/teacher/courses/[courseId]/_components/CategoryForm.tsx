@@ -53,15 +53,17 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course category updated!",
-        description: "The course category has been successfully saved.",
+        title: "Category Updated!",
+        description:
+          "Your course has been successfully updated with the new category.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem adding to this category.",
+        description:
+          "Unable to update the category. Please check your connection and try again.",
         variant: "destructive",
       });
     }

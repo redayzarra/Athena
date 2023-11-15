@@ -62,15 +62,17 @@ const PriceForm = ({ initialData, courseId }: Props) => {
         price: formattedPrice,
       });
       toast({
-        title: "Course price updated!",
-        description: "The course price has been saved.",
+        title: "Price Updated!",
+        description:
+          "Your course has been successfully updated with the new price.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem updating the price.",
+        description:
+          "Unable to update the price. Please check your connection and try again.",
         variant: "destructive",
       });
     }

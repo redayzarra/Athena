@@ -34,8 +34,8 @@ const ImageForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course image updated!",
-        description: "The course image has been successfully saved.",
+        title: "Image Updated!",
+        description: "Your course has been successfully updated with the new image.",
       });
       toggleEdit();
       router.refresh();

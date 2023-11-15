@@ -50,15 +50,17 @@ const TitleForm = ({ initialData, courseId }: Props) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Course title updated!",
-        description: "The course title has been successfully saved.",
+        title: "Title Updated!",
+        description:
+          "Your course has been successfully updated with the new title.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "There was a problem submitting your title.",
+        description:
+          "Unable to update the title. Please check your connection and try again.",
         variant: "destructive",
       });
     }
@@ -71,7 +73,12 @@ const TitleForm = ({ initialData, courseId }: Props) => {
           {isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
           <p className="text-muted-foreground">Title</p>
         </span>
-        <Button onClick={toggleEdit} size="sm" variant="ghost" className="text-muted-foreground">
+        <Button
+          onClick={toggleEdit}
+          size="sm"
+          variant="ghost"
+          className="text-muted-foreground"
+        >
           {isEditing ? (
             "Cancel"
           ) : (
