@@ -67,7 +67,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   };
 
   return (
-    <div className="mt-6 border bg-card rounded-md p-4">
+    <div className="mt-3 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {!initialData.description || isEditing ? (

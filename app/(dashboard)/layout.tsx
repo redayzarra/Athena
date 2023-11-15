@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "./_components/NavBar";
 import SideBar from "./_components/SideBar";
+import Container from "@/components/Container";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,7 +12,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="hidden md:flex h-full w-56 flex-col fixed z-50">
         <SideBar />
       </div>
-      <main className="md:ml-56 pt-[60px] h-full">{children}</main>
+      <Container>
+        <main className="md:ml-56 pt-[60px] h-full">{children}</main>
+      </Container>
     </div>
   );
 };

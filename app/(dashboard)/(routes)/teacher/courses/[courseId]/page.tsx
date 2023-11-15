@@ -61,7 +61,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const completionText = `(${completedFields}/${totalFields})`;
 
   return (
-    <div className="p-6">
+    <div>
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-4xl font-black">Course Setup</h1>
@@ -83,8 +83,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <div className="">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div>
           <div className="flex items-center gap-x-2">
             <LayoutDashboard />
             <h2 className="text-xl font-black">Customize Course</h2>
