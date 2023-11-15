@@ -7,14 +7,14 @@ import {
   FaCircleCheck,
   FaCircleHalfStroke,
   FaListCheck,
+  FaRegFileImage,
 } from "react-icons/fa6";
+import AttachmentForm from "./_components/AttachmentForm";
 import CategoryForm from "./_components/CategoryForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
-import { FaRegFileImage } from "react-icons/fa6";
-import AttachmentForm from "./_components/AttachmentForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;

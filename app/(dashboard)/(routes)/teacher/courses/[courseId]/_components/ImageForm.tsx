@@ -51,7 +51,7 @@ const ImageForm = ({ initialData, courseId }: Props) => {
           ) : (
             <FaCircleCheck />
           )}
-          <p className="text-muted-foreground">Image</p>
+          <p className="text-muted-foreground">Cover Image</p>
         </span>
         <Button onClick={toggleEdit} size="sm" variant="ghost" className="text-muted-foreground">
           {isEditing ? (
