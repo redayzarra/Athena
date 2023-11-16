@@ -23,6 +23,8 @@ export async function DELETE(
         userId,
       },
     });
+
+    // Send error if the course owner does not exist
     if (!courseOwner) {
       return NextResponse.json({}, { status: 401 });
     }

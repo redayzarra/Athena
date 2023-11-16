@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
 import axios from "axios";
-import { PencilIcon } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -27,40 +27,45 @@ interface Props {
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, { message: "Description is required." }),
+  title: z.string().min(1),
 });
 
 const ChapterForm = ({ initialData, courseId }: Props) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const toggleEdit = () => setIsEditing((current) => !current);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      description: initialData.description ?? "",
-    },
-  });
+  // State variables to toggle component
+  const [isCreating, setIsCreating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const toggleCreating = () => setIsCreating((current) => !current);
 
   // Initialize the useToast hook and router
   const { toast } = useToast();
   const router = useRouter();
 
+  // Form validation
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+    },
+  });
+
+  // Submitting state variable
   const { isSubmitting, isValid } = form.formState;
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
+      await axios.post(`/api/courses/${courseId}/chapters`, values);
       toast({
-        title: "Description Updated!",
+        title: "Chapter Created!",
         description:
-          "Your course has been successfully updated with the new description.",
+          "Your course has been successfully updated with the new chapter.",
       });
-      toggleEdit();
+      toggleCreating();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
         description:
-          "Unable to update the description. Please check your connection and try again.",
+          "Unable to update the chapter. Please check your connection and try again.",
         variant: "destructive",
       });
     }
@@ -74,21 +79,21 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
         </p>
         <Button
           size="sm"
-          onClick={toggleEdit}
+          onClick={toggleCreating}
           variant="ghost"
           className="text-muted-foreground"
         >
-          {isEditing ? (
+          {isCreating ? (
             "Cancel"
           ) : (
             <>
-              <PencilIcon className="h-4 w-4 mr-2" />
-              Edit
+              <PlusCircle className="h-4 w-4 mr-2" />
+              Add
             </>
           )}
         </Button>
       </div>
-      {isEditing ? (
+      {isCreating ? (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -96,7 +101,7 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
           >
             <FormField
               control={form.control}
-              name="description"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>

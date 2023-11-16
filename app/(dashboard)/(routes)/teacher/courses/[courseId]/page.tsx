@@ -26,12 +26,18 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     return redirect("/courses");
   }
 
-  // Checking course validation
+  // Fetch the course
   const course = await db.course.findUnique({
     where: {
       id: courseId,
+      userId,
     },
     include: {
+      chapters: {
+        orderBy: {
+          position: "asc",
+        },
+      },
       attachments: {
         orderBy: {
           createdAt: "desc",
@@ -39,6 +45,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       },
     },
   });
+
+  // Redirect if course is not valid
   if (!course) {
     return redirect("/courses");
   }
@@ -55,6 +63,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.description,
     course.imageUrl,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;

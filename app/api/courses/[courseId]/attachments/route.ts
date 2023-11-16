@@ -13,12 +13,14 @@ export async function POST(
       return NextResponse.json({}, { status: 401 });
     }
 
+    // Extracting values
+    const { courseId } = params;
     const { url } = await request.json();
 
     const courseOwner = await db.course.findUnique({
       where: {
-        id: params.courseId,
-        userId: userId,
+        id: courseId,
+        userId,
       },
     });
 
@@ -30,7 +32,7 @@ export async function POST(
       data: {
         url,
         name: url.split("/").pop(),
-        courseId: params.courseId,
+        courseId,
       },
     });
 
