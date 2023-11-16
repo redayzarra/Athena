@@ -19,7 +19,6 @@ import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
 interface Props {

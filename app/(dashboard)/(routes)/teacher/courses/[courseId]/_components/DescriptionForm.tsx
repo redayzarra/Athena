@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
-import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 import * as z from "zod";
 
 interface Props {
