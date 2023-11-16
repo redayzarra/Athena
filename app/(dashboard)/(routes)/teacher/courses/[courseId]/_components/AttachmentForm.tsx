@@ -71,9 +71,9 @@ const AttachmentForm = ({ initialData, courseId }: Props) => {
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
       <div className="font-bold flex items-center mb-2 justify-between">
-        <span className="text-base font-medium text-primary flex items-center gap-x-2">
-          <p className="text-muted-foreground">Attachments</p>
-        </span>
+        <p className="text-base font-medium text-muted-foreground flex items-center gap-x-2">
+          Attachments
+        </p>
         <Button
           onClick={toggleEdit}
           size="sm"

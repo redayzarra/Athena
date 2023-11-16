@@ -110,7 +110,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
                   <FormDescription>
                     This is the title of your course.
                   </FormDescription>
-                  <FormMessage className="text-muted-foreground" />
+                  <FormMessage />
                 </FormItem>
               )}
             />

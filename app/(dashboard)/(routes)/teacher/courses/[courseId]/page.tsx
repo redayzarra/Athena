@@ -15,6 +15,7 @@ import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
+import ChapterForm from "./_components/ChapterForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -107,7 +108,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <h2 className="text-xl font-black">Course Chapters</h2>
           </div>
           <div>
-            <DescriptionForm initialData={course} courseId={course.id} />
+            <ChapterForm initialData={course} courseId={course.id} />
           </div>
           <div className="flex items-center gap-x-2">
             <div className="-ml-[2px] -mr-[3px]">

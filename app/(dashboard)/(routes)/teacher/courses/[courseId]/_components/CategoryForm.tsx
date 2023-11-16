@@ -117,7 +117,6 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
                   <FormDescription>
                     Choose a category for your course.
                   </FormDescription>
-                  <FormMessage className="text-muted-foreground" />
                 </FormItem>
               )}
             />
