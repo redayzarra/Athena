@@ -83,7 +83,7 @@ const ChaptersList = ({ onEdit, onReorder, items }: Props) => {
                         )}
                       </div>
                       <Pencil
-                        className="mx-2 h-4 w-4 cursor-pointer hover:opacity-75 transition-all"
+                        className="mx-2 h-4 w-4 cursor-pointer hover:text-foreground transition-all"
                         onClick={() => onEdit(chapter.id)}
                       />
                     </div>
