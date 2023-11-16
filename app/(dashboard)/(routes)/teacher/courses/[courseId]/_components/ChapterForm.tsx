@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import ChaptersList from "./ChaptersList";
 
 interface Props {
   initialData: Course & { chapters: Chapter[] };
@@ -135,7 +136,12 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
               !initialData.chapters.length && "italic"
             )}
           >
-            {initialData.chapters.length || "No chapters"}
+            {!initialData.chapters.length && "No chapters"}
+            <ChaptersList
+              onEdit={() => {}}
+              onReorder={() => {}}
+              items={initialData.chapters || []}
+            />
           </p>
           <div className="text-xs text-muted-foreground mt-4">
             Drag and drop to reorder chapters
