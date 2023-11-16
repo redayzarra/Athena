@@ -9,11 +9,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Course } from "@prisma/client";
+import { Chapter, Course } from "@prisma/client";
 import axios from "axios";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 interface Props {
-  initialData: Course;
+  initialData: Course & { chapters: Chapter[] };
   courseId: string;
 }
 
@@ -94,40 +95,52 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
         </Button>
       </div>
       {isCreating ? (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 mt-4"
-          >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g 'Master the basics of video editing with Premiere Pro! This guide is...'"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Provide a brief description of your course.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4 mt-4"
+            >
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        disabled={isSubmitting}
+                        placeholder="e.g 'Introduction'"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Provide a name for your chapter.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button disabled={isSubmitting} type="submit">
-              Save
-            </Button>
-          </form>
-        </Form>
+              <Button disabled={isSubmitting} type="submit">
+                Create
+              </Button>
+            </form>
+          </Form>
+        </>
       ) : (
-        <p className={cn("text-md mt-2", !initialData.description && "italic")}>
-          {initialData.description || "No description"}
-        </p>
+        <>
+          <p
+            className={cn(
+              "text-md mt-2",
+              !initialData.chapters.length && "italic"
+            )}
+          >
+            {initialData.chapters.length || "No chapters"}
+          </p>
+          <div className="text-xs text-muted-foreground mt-4">
+            Drag and drop to reorder chapters
+          </div>
+        </>
       )}
     </div>
   );
