@@ -80,7 +80,7 @@ const PriceForm = ({ initialData, courseId }: Props) => {
 
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
-      <div className="font-bold flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <p className="text-base font-medium text-muted-foreground">Pricing</p>
         <Button
           size="sm"
@@ -127,11 +127,9 @@ const PriceForm = ({ initialData, courseId }: Props) => {
               )}
             />
 
-            <div className="flex items-center gap-x-2">
-              <Button disabled={isSubmitting} type="submit">
-                Save
-              </Button>
-            </div>
+            <Button disabled={isSubmitting} type="submit">
+              Save
+            </Button>
           </form>
         </Form>
       ) : (

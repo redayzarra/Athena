@@ -53,14 +53,16 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
         title: "Description Updated!",
-        description: "Your course has been successfully updated with the new description.",
+        description:
+          "Your course has been successfully updated with the new description.",
       });
       toggleEdit();
       router.refresh();
     } catch (error) {
       toast({
         title: "Something went wrong.",
-        description: "Unable to update the description. Please check your connection and try again.",
+        description:
+          "Unable to update the description. Please check your connection and try again.",
         variant: "destructive",
       });
     }
@@ -68,7 +70,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
 
   return (
     <div className="mt-3 border bg-card rounded-md p-4">
-      <div className="font-bold flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {!initialData.description || isEditing ? (
             <FaCircleHalfStroke />
@@ -112,18 +114,16 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
                     />
                   </FormControl>
                   <FormDescription>
-                    Provide a brief description of your course
+                    Provide a brief description of your course.
                   </FormDescription>
                   <FormMessage className="text-muted-foreground" />
                 </FormItem>
               )}
             />
 
-            <div className="flex items-center gap-x-2">
-              <Button disabled={isSubmitting} type="submit">
-                Save
-              </Button>
-            </div>
+            <Button disabled={isSubmitting} type="submit">
+              Save
+            </Button>
           </form>
         </Form>
       ) : (

@@ -75,7 +75,7 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
 
   return (
     <div className="mt-3 border bg-card rounded-md p-4">
-      <div className="font-bold flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {!initialData.categoryId || isEditing ? (
             <FaCircleHalfStroke />
@@ -122,11 +122,9 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
               )}
             />
 
-            <div className="flex items-center gap-x-2">
-              <Button disabled={isSubmitting} type="submit">
-                Save
-              </Button>
-            </div>
+            <Button disabled={isSubmitting} type="submit">
+              Save
+            </Button>
           </form>
         </Form>
       ) : (

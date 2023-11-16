@@ -68,7 +68,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
 
   return (
     <div className="mt-6 border bg-card rounded-md p-4">
-      <div className="font-bold flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
           <p className="text-muted-foreground">Title</p>
@@ -115,11 +115,9 @@ const TitleForm = ({ initialData, courseId }: Props) => {
               )}
             />
 
-            <div className="flex items-center gap-x-2">
-              <Button disabled={isSubmitting} type="submit">
-                Save
-              </Button>
-            </div>
+            <Button disabled={isSubmitting} type="submit">
+              Save
+            </Button>
           </form>
         </Form>
       ) : (

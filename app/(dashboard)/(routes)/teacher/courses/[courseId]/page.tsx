@@ -83,7 +83,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 mt-12">
         <div>
           <div className="flex items-center gap-x-2">
             <LayoutDashboard />
@@ -102,20 +102,20 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           />
         </div>
         <div className="space-y-6">
-          <div>
-            <div className="flex items-center gap-x-2">
-              <FaListCheck size="22" />
-              <h2 className="text-xl font-black">Course Chapters</h2>
-            </div>
-            <div>TODO: Chapters</div>
-            <div className="flex items-center gap-x-2">
-              <div className="-ml-[2px] -mr-[3px]">
-                <AiOutlineDollar size="28" />
-              </div>
-              <h2 className="text-xl font-black">Course Pricing</h2>
-            </div>
-            <PriceForm initialData={course} courseId={course.id} />
+          <div className="flex items-center gap-x-2">
+            <FaListCheck size="22" />
+            <h2 className="text-xl font-black">Course Chapters</h2>
           </div>
+          <div>
+            <DescriptionForm initialData={course} courseId={course.id} />
+          </div>
+          <div className="flex items-center gap-x-2">
+            <div className="-ml-[2px] -mr-[3px]">
+              <AiOutlineDollar size="28" />
+            </div>
+            <h2 className="text-xl font-black">Course Pricing</h2>
+          </div>
+          <PriceForm initialData={course} courseId={course.id} />
           <div className="">
             <div className="flex items-center gap-x-2">
               <FaRegFileImage size="24" />
