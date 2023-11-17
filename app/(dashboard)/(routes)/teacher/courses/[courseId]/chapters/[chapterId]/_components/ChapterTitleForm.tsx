@@ -24,38 +24,47 @@ interface Props {
   initialData: {
     title: string;
   };
+  courseId: string;
   chapterId: string;
 }
 
+// Zod schema
 const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required." }),
 });
 
-const TitleForm = ({ initialData, chapterId }: Props) => {
+const ChapterTitleForm = ({ initialData, courseId, chapterId }: Props) => {
+  // State variables for toggling component
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
+  // Initialize the useToast hook and router
+  const { toast } = useToast();
   const router = useRouter();
 
+  // Form and sumitting state variable
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
-
-  // Initialize the useToast hook
-  const { toast } = useToast();
-
   const { isSubmitting, isValid } = form.formState;
+
+  // Submitting functionality
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${chapterId}`, values);
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        values
+      );
       toast({
-        title: "Title Updated!",
+        title: "Chapter Title Updated!",
         description:
-          "Your course has been successfully updated with the new title.",
+          "Your chapter has been successfully updated with the new title.",
       });
       toggleEdit();
       router.refresh();
+
+      // Error handling for submitting
     } catch (error) {
       toast({
         title: "Something went wrong.",
@@ -72,7 +81,7 @@ const TitleForm = ({ initialData, chapterId }: Props) => {
         {isEditing ? (
           <Form {...form}>
             <form
-              id="titleform"
+              id="ChapterTitleForm"
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-4"
             >
@@ -85,12 +94,12 @@ const TitleForm = ({ initialData, chapterId }: Props) => {
                       <Input
                         disabled={isSubmitting}
                         className={cn("font-black text-xl")}
-                        placeholder="e.g 'Beginners Guide to Premiere Pro'"
+                        placeholder="e.g 'Introduction'"
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      This is the title of your course.
+                      This is the title for your chapter.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -124,14 +133,13 @@ const TitleForm = ({ initialData, chapterId }: Props) => {
         </Button>
       </div>
 
-      {/* Where I want my save button to go */}
       {isEditing && (
         <Button
           disabled={isSubmitting}
           size="sm"
           className="ml-1 drop-shadow-xl"
           variant="default"
-          form="titleform"
+          form="ChapterTitleForm"
           type="submit"
         >
           Save
@@ -141,4 +149,4 @@ const TitleForm = ({ initialData, chapterId }: Props) => {
   );
 };
 
-export default TitleForm;
+export default ChapterTitleForm;

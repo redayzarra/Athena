@@ -88,10 +88,14 @@ const ChapterIdPage = async ({
       <div className="flex items-center">
         <div className="flex flex-col">
           <div className="flex">
-            <Link href={`/teacher/courses`}>
+            <Link href={`/teacher/courses/${courseId}`}>
               <ArrowLeft className="-ml-1 mr-[12px] mt-2" />
             </Link>
-            <ChapterTitleForm initialData={chapter} chapterId={chapter.id} />
+            <ChapterTitleForm
+              initialData={chapter}
+              courseId={courseId}
+              chapterId={chapterId}
+            />
           </div>
 
           <div className="ml-8 mt-2">

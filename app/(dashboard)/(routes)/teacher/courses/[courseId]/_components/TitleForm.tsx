@@ -72,7 +72,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
         {isEditing ? (
           <Form {...form}>
             <form
-              id="titleform"
+              id="TitleForm"
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-4"
             >
@@ -124,14 +124,13 @@ const TitleForm = ({ initialData, courseId }: Props) => {
         </Button>
       </div>
 
-      {/* Where I want my save button to go */}
       {isEditing && (
         <Button
           disabled={isSubmitting}
           size="sm"
           className="ml-1 drop-shadow-xl"
           variant="default"
-          form="titleform"
+          form="TitleForm"
           type="submit"
         >
           Save
