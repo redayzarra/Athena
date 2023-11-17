@@ -55,6 +55,17 @@ body,
   }
 }
 
+/* Style for the Quill editor container */
+.ql-container {
+  font-size: 14px !important;
+  border: none !important;
+}
+
+/* Style for the Quill toolbar */
+.ql-toolbar {
+  border: none !important;
+}
+
 @layer base {
   * {
     @apply border-border;

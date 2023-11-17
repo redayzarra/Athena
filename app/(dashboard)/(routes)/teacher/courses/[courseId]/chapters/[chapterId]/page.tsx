@@ -10,13 +10,13 @@ import {
   FaRegFileImage,
 } from "react-icons/fa6";
 import { MdOutlineCategory } from "react-icons/md";
-import ChapterTitleForm from "./_components/ChapterTitleForm";
 import AttachmentForm from "../../_components/AttachmentForm";
 import CategoryForm from "../../_components/CategoryForm";
-import ChapterForm from "../../_components/ChapterForm";
 import DescriptionForm from "../../_components/DescriptionForm";
 import ImageForm from "../../_components/ImageForm";
 import PriceForm from "../../_components/PriceForm";
+import ChapterTitleForm from "./_components/ChapterTitleForm";
+import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 
 const ChapterIdPage = async ({
   params,
@@ -125,9 +125,12 @@ const ChapterIdPage = async ({
             <LayoutDashboard />
             <h2 className="text-xl font-black">Customize Chapter</h2>
           </div>
-          <DescriptionForm initialData={course} courseId={courseId} />
+          <ChapterDescriptionForm
+            initialData={chapter}
+            chapterId={chapterId}
+            courseId={courseId}
+          />
           <ImageForm initialData={course} courseId={courseId} />
-          <ChapterForm initialData={course} courseId={courseId} />
         </div>
 
         {/* Second Column */}

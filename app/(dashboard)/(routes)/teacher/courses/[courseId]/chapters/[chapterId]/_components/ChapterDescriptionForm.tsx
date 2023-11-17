@@ -1,5 +1,7 @@
 "use client";
 
+import Editor from "@/components/Editor";
+import Preview from "@/components/Preview";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,11 +11,10 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Course } from "@prisma/client";
+import { Chapter } from "@prisma/client";
 import axios from "axios";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -23,17 +24,22 @@ import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
 interface Props {
-  initialData: Course;
+  initialData: Chapter;
   courseId: string;
+  chapterId: string;
 }
 
-// Zod schema
+// Zod form
 const formSchema = z.object({
   description: z.string().min(1, { message: "Description is required." }),
 });
 
-const DescriptionForm = ({ initialData, courseId }: Props) => {
-  // State variables for toggling the component
+const ChapterDescriptionForm = ({
+  initialData,
+  courseId,
+  chapterId,
+}: Props) => {
+  // State variables for toggling component
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -41,7 +47,7 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   const { toast } = useToast();
   const router = useRouter();
 
-  // Form and submitting state variable
+  // Form and submit state variable
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,16 +56,19 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   });
   const { isSubmitting, isValid } = form.formState;
 
-  // Submitting functionality
+  // Submitting state variable
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        values
+      );
 
       // Success
       toast({
-        title: "Description Updated!",
+        title: "Chapter Description Updated!",
         description:
-          "Your course has been successfully updated with the new description.",
+          "Your chapter has been successfully updated with the new description.",
       });
       toggleEdit();
       router.refresh();
@@ -114,15 +123,8 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g 'Master the basics of video editing with Premiere Pro! This guide is...'"
-                      {...field}
-                    />
+                    <Editor {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Provide a brief description of your course.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -134,12 +136,18 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p className={cn("text-md mt-2", !initialData.description && "italic")}>
-          {initialData.description || "No description"}
-        </p>
+        <div
+          className={cn("text-md mt-2", !initialData.description && "italic")}
+        >
+          {!initialData.description ? (
+            "No description"
+          ) : (
+            <Preview value={initialData.description} />
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-export default DescriptionForm;
+export default ChapterDescriptionForm;
