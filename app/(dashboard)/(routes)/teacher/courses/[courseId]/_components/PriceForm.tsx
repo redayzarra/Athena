@@ -79,7 +79,7 @@ const PriceForm = ({ initialData, courseId }: Props) => {
   };
 
   return (
-    <div className="mt-6 border bg-card rounded-md p-4 drop-shadow-xl">
+    <div className="mt-6 border bg-card rounded-md p-4 drop-shadow-lg">
       <div className="flex items-center justify-between">
         <p className="text-base font-medium text-muted-foreground">Pricing</p>
         <Button
@@ -135,7 +135,7 @@ const PriceForm = ({ initialData, courseId }: Props) => {
       ) : (
         <p
           className={cn(
-            "text-xl font-black text-foreground mt-2",
+            "text-lg font-extrabold text-foreground mt-2",
             !initialData.price && "font-bold text-foreground italic"
           )}
         >

@@ -69,7 +69,7 @@ const AttachmentForm = ({ initialData, courseId }: Props) => {
   };
 
   return (
-    <div className="mt-6 border bg-card rounded-md p-4 drop-shadow-xl">
+    <div className="mt-6 border bg-card rounded-md p-4 drop-shadow-lg">
       <div className="font-bold flex items-center mb-2 justify-between">
         <p className="text-base font-medium text-muted-foreground flex items-center gap-x-2">
           Attachments

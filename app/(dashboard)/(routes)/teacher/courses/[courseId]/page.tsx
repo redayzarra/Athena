@@ -16,7 +16,6 @@ import ChapterForm from "./_components/ChapterForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
-import TitleForm2 from "./_components/TitleForm";
 import TitleForm from "./_components/TitleForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
@@ -25,7 +24,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   // Checking user authentication
   const { userId } = auth();
   if (!userId) {
-    return redirect("/courses");
+    return redirect("/");
   }
 
   // Fetch the course
@@ -80,7 +79,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <Link href={`/teacher/courses`}>
               <ArrowLeft className="-ml-1 mr-[12px] mt-2" />
             </Link>
-            {/* <h1 className="text-4xl font-black">{course.title}</h1> */}
             <TitleForm initialData={course} courseId={course.id} />
           </div>
 
@@ -111,7 +109,6 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <LayoutDashboard />
             <h2 className="text-xl font-black">Customize Course</h2>
           </div>
-          {/* <TitleForm initialData={course} courseId={course.id} /> */}
           <DescriptionForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
           <ChapterForm initialData={course} courseId={course.id} />
