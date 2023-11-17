@@ -22,6 +22,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import ChaptersList from "./ChaptersList";
+import { FaCircleHalfStroke, FaCircleCheck } from "react-icons/fa6";
 
 interface Props {
   initialData: Course & { chapters: Chapter[] };
@@ -29,7 +30,7 @@ interface Props {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1, "Chapter title is required."),
 });
 
 const ChapterForm = ({ initialData, courseId }: Props) => {
@@ -88,12 +89,21 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
     }
   };
 
+  const onEdit = (id: string) => {
+    router.push(`/teacher/courses/${courseId}/chapters/${id}`);
+  };
+
   return (
     <div className="mt-3 border bg-card rounded-md p-4">
       <div className="flex items-center justify-between">
-        <p className="text-base font-medium text-muted-foreground flex items-center gap-x-2">
-          Chapters
-        </p>
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {!initialData.chapters.some((chapter) => chapter.isPublished) ? (
+            <FaCircleHalfStroke />
+          ) : (
+            <FaCircleCheck />
+          )}
+          <p className="text-muted-foreground">Course Chapters</p>
+        </span>
         <Button
           size="sm"
           onClick={toggleCreating}
@@ -153,7 +163,7 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
           >
             {!initialData.chapters.length && "No chapters"}
             <ChaptersList
-              onEdit={() => {}}
+              onEdit={onEdit}
               onReorder={onReorder}
               items={initialData.chapters || []}
             />

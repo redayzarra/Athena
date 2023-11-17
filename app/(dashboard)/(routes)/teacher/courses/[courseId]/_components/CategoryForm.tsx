@@ -7,7 +7,7 @@ import {
   FormControl,
   FormDescription,
   FormField,
-  FormItem
+  FormItem,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
@@ -73,7 +73,7 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
   );
 
   return (
-    <div className="mt-3 border bg-card rounded-md p-4">
+    <div className="mt-3 border bg-card rounded-md p-4 drop-shadow-xl">
       <div className="flex items-center justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {!initialData.categoryId || isEditing ? (
@@ -128,7 +128,7 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
       ) : (
         <p
           className={cn(
-            "text-xl font-bold mt-2",
+            "text-lg font-bold mt-2",
             !initialData.categoryId &&
               "text-base text-foreground font-normal italic"
           )}

@@ -24,14 +24,14 @@ interface Props {
   initialData: {
     title: string;
   };
-  courseId: string;
+  chapterId: string;
 }
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required." }),
 });
 
-const TitleForm = ({ initialData, courseId }: Props) => {
+const TitleForm = ({ initialData, chapterId }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -48,7 +48,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
   const { isSubmitting, isValid } = form.formState;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
+      await axios.patch(`/api/courses/${chapterId}`, values);
       toast({
         title: "Title Updated!",
         description:

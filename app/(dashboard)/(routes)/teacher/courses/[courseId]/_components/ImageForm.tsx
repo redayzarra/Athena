@@ -35,7 +35,8 @@ const ImageForm = ({ initialData, courseId }: Props) => {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast({
         title: "Image Updated!",
-        description: "Your course has been successfully updated with the new image.",
+        description:
+          "Your course has been successfully updated with the new image.",
       });
       toggleEdit();
       router.refresh();
@@ -43,7 +44,7 @@ const ImageForm = ({ initialData, courseId }: Props) => {
   };
 
   return (
-    <div className="mt-3 border bg-card rounded-md p-4">
+    <div className="mt-3 border bg-card rounded-md p-4 drop-shadow-md">
       <div className="font-bold flex items-center mb-2 justify-between">
         <span className="text-base font-medium text-primary flex items-center gap-x-2">
           {!initialData.imageUrl || isEditing ? (
@@ -53,7 +54,12 @@ const ImageForm = ({ initialData, courseId }: Props) => {
           )}
           <p className="text-muted-foreground">Cover Image</p>
         </span>
-        <Button onClick={toggleEdit} size="sm" variant="ghost" className="text-muted-foreground">
+        <Button
+          onClick={toggleEdit}
+          size="sm"
+          variant="ghost"
+          className="text-muted-foreground"
+        >
           {isEditing ? (
             "Cancel"
           ) : (

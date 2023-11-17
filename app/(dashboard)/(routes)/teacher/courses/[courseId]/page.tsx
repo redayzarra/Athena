@@ -1,21 +1,23 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AiOutlineDollar } from "react-icons/ai";
 import {
   FaCircleCheck,
   FaCircleHalfStroke,
-  FaListCheck,
   FaRegFileImage,
 } from "react-icons/fa6";
+import { MdOutlineCategory } from "react-icons/md";
 import AttachmentForm from "./_components/AttachmentForm";
 import CategoryForm from "./_components/CategoryForm";
+import ChapterForm from "./_components/ChapterForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
+import TitleForm2 from "./_components/TitleForm";
 import TitleForm from "./_components/TitleForm";
-import ChapterForm from "./_components/ChapterForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -59,7 +61,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   // Calculating the progress of form completion
   const requiredFields = [
-    course.title,
+    // course.title,
     course.description,
     course.imageUrl,
     course.categoryId,
@@ -72,36 +74,57 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex flex-col gap-y-2">
-          <h1 className="text-4xl font-black">Course Setup</h1>
-          {completedFields === totalFields ? (
-            <div className="font-medium text-base text-primary flex items-center gap-x-2">
-              <FaCircleCheck />
-              <p className="text-muted-foreground">
-                Completed all fields {completionText}
-              </p>
-            </div>
-          ) : (
-            <div className="font-medium text-base text-primary flex items-center gap-x-2">
-              <FaCircleHalfStroke />
-              <p className="text-muted-foreground">
-                Complete required fields {completionText}
-              </p>
-            </div>
-          )}
+      <div className="flex items-center">
+        <div className="flex flex-col">
+          <div className="flex">
+            <Link href={`/teacher/courses`}>
+              <ArrowLeft className="-ml-1 mr-[12px] mt-2" />
+            </Link>
+            {/* <h1 className="text-4xl font-black">{course.title}</h1> */}
+            <TitleForm initialData={course} courseId={course.id} />
+          </div>
+
+          <div className="ml-8 mt-2">
+            {completedFields === totalFields ? (
+              <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                <FaCircleCheck />
+                <p className="text-muted-foreground">
+                  Completed all fields {completionText}
+                </p>
+              </div>
+            ) : (
+              <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                <FaCircleHalfStroke />
+                <p className="text-muted-foreground">
+                  Complete required fields {completionText}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 mt-12">
+      {/* First Column */}
+      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 mt-10">
         <div>
           <div className="flex items-center gap-x-2">
             <LayoutDashboard />
             <h2 className="text-xl font-black">Customize Course</h2>
           </div>
-          <TitleForm initialData={course} courseId={course.id} />
+          {/* <TitleForm initialData={course} courseId={course.id} /> */}
           <DescriptionForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
+          <ChapterForm initialData={course} courseId={course.id} />
+        </div>
+
+        {/* Second Column */}
+        <div>
+          <div className="flex items-center gap-x-2">
+            <div className="-mr-[2px]">
+              <MdOutlineCategory size="26" />
+            </div>
+            <h2 className="text-xl font-black">Course Category</h2>
+          </div>
           <CategoryForm
             initialData={course}
             courseId={course.id}
@@ -110,16 +133,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               value: category.id,
             }))}
           />
-        </div>
-        <div className="space-y-6">
-          <div className="flex items-center gap-x-2">
-            <FaListCheck size="22" />
-            <h2 className="text-xl font-black">Course Chapters</h2>
-          </div>
-          <div>
-            <ChapterForm initialData={course} courseId={course.id} />
-          </div>
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 mt-6">
             <div className="-ml-[2px] -mr-[3px]">
               <AiOutlineDollar size="28" />
             </div>
@@ -127,7 +141,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
           <PriceForm initialData={course} courseId={course.id} />
           <div className="">
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2 mt-6">
               <FaRegFileImage size="24" />
               <h2 className="text-xl font-black">Resources</h2>
             </div>

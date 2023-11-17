@@ -7,64 +7,52 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { formatPrice } from "@/lib/formatPrice";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Course } from "@prisma/client";
 import axios from "axios";
 import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 
-// The props for this component
 interface Props {
-  initialData: Course;
+  initialData: {
+    title: string;
+  };
   courseId: string;
 }
 
-// The form schema to verify the input
 const formSchema = z.object({
-  price: z.coerce.number(),
+  title: z.string().min(1, { message: "Title is required." }),
 });
 
-const PriceForm = ({ initialData, courseId }: Props) => {
-  // Editing variable to toggle the component
+const TitleForm = ({ initialData, courseId }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
 
-  // Initialize the useToast hook and router
-  const { toast } = useToast();
   const router = useRouter();
 
-  // Initialize form and submitting variable
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      price: initialData.price || undefined,
-    },
+    defaultValues: initialData,
   });
+
+  // Initialize the useToast hook
+  const { toast } = useToast();
+
   const { isSubmitting, isValid } = form.formState;
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // Convert the price to a string with two decimal places
-    const formattedPrice = Number(values.price).toFixed(2);
-
     try {
-      await axios.patch(`/api/courses/${courseId}`, {
-        ...values,
-        price: formattedPrice,
-      });
+      await axios.patch(`/api/courses/${courseId}`, values);
       toast({
-        title: "Price Updated!",
+        title: "Title Updated!",
         description:
-          "Your course has been successfully updated with the new price.",
+          "Your course has been successfully updated with the new title.",
       });
       toggleEdit();
       router.refresh();
@@ -72,19 +60,22 @@ const PriceForm = ({ initialData, courseId }: Props) => {
       toast({
         title: "Something went wrong.",
         description:
-          "Unable to update the price. Please check your connection and try again.",
+          "Unable to update the title. Please check your connection and try again.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <div className="mt-6 border bg-card rounded-md p-4 drop-shadow-xl">
+    <div className="mt-6 border bg-card rounded-md p-4">
       <div className="flex items-center justify-between">
-        <p className="text-base font-medium text-muted-foreground">Pricing</p>
+        <span className="text-base font-medium text-primary flex items-center gap-x-2">
+          {isEditing ? <FaCircleHalfStroke /> : <FaCircleCheck />}
+          <p className="text-muted-foreground">Title</p>
+        </span>
         <Button
-          size="sm"
           onClick={toggleEdit}
+          size="sm"
           variant="ghost"
           className="text-muted-foreground"
         >
@@ -106,23 +97,20 @@ const PriceForm = ({ initialData, courseId }: Props) => {
           >
             <FormField
               control={form.control}
-              name="price"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-semibold">Dollars</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
-                      step="0.1"
                       disabled={isSubmitting}
-                      placeholder="e.g. '5.00'"
+                      placeholder="e.g 'Beginners Guide to Premiere Pro'"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    This is the price of your course.
+                    This is the title of your course.
                   </FormDescription>
-                  <FormMessage className="text-muted-foreground" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -133,17 +121,10 @@ const PriceForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p
-          className={cn(
-            "text-xl font-black text-foreground mt-2",
-            !initialData.price && "font-bold text-foreground italic"
-          )}
-        >
-          {initialData.price ? formatPrice(initialData.price) : "Free"}
-        </p>
+        <p className="text-2xl font-bold mt-2">{initialData.title}</p>
       )}
     </div>
   );
 };
 
-export default PriceForm;
+export default TitleForm;
