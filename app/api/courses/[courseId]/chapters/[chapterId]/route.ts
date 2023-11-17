@@ -30,6 +30,7 @@ export async function PATCH(
       return NextResponse.json({}, { status: 401 });
     }
 
+    // Find the chapter from the database and update it
     const chapter = await db.chapter.update({
       where: {
         id: chapterId,
