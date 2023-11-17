@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Chapter, Course } from "@prisma/client";
 import axios from "axios";
-import { PlusCircle } from "lucide-react";
+import { Loader2, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -35,7 +35,6 @@ const formSchema = z.object({
 const ChapterForm = ({ initialData, courseId }: Props) => {
   // State variables to toggle component
   const [isCreating, setIsCreating] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
   const toggleCreating = () => setIsCreating((current) => !current);
 
   // Initialize the useToast hook and router
@@ -75,7 +74,6 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
 
   const onReorder = async (updateData: { id: string; position: number }[]) => {
     try {
-      setIsUpdating(true);
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
         list: updateData,
       });
@@ -87,8 +85,6 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
           "Unable to reorder the chapter. Please check your connection and try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsUpdating(false);
     }
   };
 

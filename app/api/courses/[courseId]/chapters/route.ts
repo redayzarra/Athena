@@ -25,7 +25,7 @@ export async function POST(
       },
     });
 
-    // Redirect if you can't find the course owner
+    // Thow error if you can't find the course owner
     if (!courseOwner) {
       return NextResponse.json({}, { status: 401 });
     }
