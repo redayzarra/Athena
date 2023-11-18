@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
@@ -8,9 +7,10 @@ import {
   FaCircleCheck,
   FaCircleHalfStroke,
   FaGears,
-  FaPhotoFilm
+  FaPhotoFilm,
 } from "react-icons/fa6";
 import ChapterAccessForm from "./_components/ChapterAccessForm";
+import ChapterDeleteButton from "./_components/ChapterDeleteButton";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterVideoForm from "./_components/ChapterVideoForm";
@@ -45,13 +45,14 @@ const ChapterIdPage = async ({
     return redirect(`/teacher/courses/${courseId}`);
   }
 
+  // Calculating completion text and canPublish variables
   const requiredFields = [chapter.description, chapter.videoUrl];
-
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
-
   const canPublish = completedFields === totalFields;
+
+  // On delete
 
   return (
     <div>
@@ -86,13 +87,11 @@ const ChapterIdPage = async ({
             )}
           </div>
         </div>
-        {completedFields === totalFields && (
-          <Link href={`/teacher/courses/${courseId}`}>
-            <Button size="sm" className="ml-2 font-bold">
-              Save
-            </Button>
-          </Link>
-        )}
+        <ChapterDeleteButton
+          initialData={chapter}
+          chapterId={chapterId}
+          courseId={courseId}
+        />
       </div>
 
       {/* First Column */}

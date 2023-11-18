@@ -44,7 +44,14 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
       });
       toggleEdit();
       router.refresh();
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description:
+          "Unable to update the video. Please check your connection and try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

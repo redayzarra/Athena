@@ -61,10 +61,10 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
         onCheckedChange={handleToggle}
       />
       {isPublished ? (
-        <Badge className="cursor-pointer">Published</Badge>
+        <Badge className="cursor-pointer">Posted</Badge>
       ) : (
         <Badge className="cursor-pointer" variant="secondary">
-          Unpublished
+          Drafted
         </Badge>
       )}
     </div>

@@ -87,3 +87,47 @@ export async function PATCH(
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { courseId: string; chapterId: string } }
+) {
+  try {
+    // Protecting api route with user authentication
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Extracting for easier variable calling
+    const { courseId, chapterId } = params;
+
+    // Find the owner of the course
+    const courseOwner = await db.course.findUnique({
+      where: {
+        id: courseId,
+        userId,
+      },
+    });
+
+    // Send error if the course owner does not exist
+    if (!courseOwner) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Find chapter
+    const chapter = await db.chapter.delete({
+      where: {
+        id: chapterId,
+        courseId,
+      },
+    });
+
+    return NextResponse.json(chapter);
+
+    // Error handling
+  } catch (error) {
+    console.log("[CHAPTER_ID: DELETE]", error);
+    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+  }
+}
