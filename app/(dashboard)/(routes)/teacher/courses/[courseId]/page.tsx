@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
@@ -15,11 +16,9 @@ import CategoryForm from "./_components/CategoryForm";
 import ChapterForm from "./_components/ChapterForm";
 import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
+import PostToggle from "./_components/PostToggle";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
-import { Button } from "@/components/ui/button";
-import PostToggle from "./_components/PostToggle";
-import { Separator } from "@/components/ui/separator";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;

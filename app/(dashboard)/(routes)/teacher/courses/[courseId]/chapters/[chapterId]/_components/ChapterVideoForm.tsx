@@ -3,17 +3,10 @@
 import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import MuxPlayer from "@mux/mux-player-react";
 import { Chapter, MuxData } from "@prisma/client";
 import axios from "axios";
-import {
-  ImageIcon,
-  Loader2,
-  PencilIcon,
-  PlusCircle,
-  VideoIcon,
-} from "lucide-react";
-import Image from "next/image";
-import MuxPlayer from "@mux/mux-player-react";
+import { PencilIcon, PlusCircle, VideoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
@@ -111,17 +104,9 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
           <VideoIcon className="h-10 w-10 text-foreground" />
         </div>
       ) : (
-        <>
-          <div className="relative aspect-video">
-            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
-          </div>
-          {/* {initialData.videoUrl && !isEditing && (
-            <div className="flex text-muted-foreground text-sm justify-center items-center gap-x-1">
-              <Loader2 className="animate-spin h-4 w-4 " />
-              Processing your video. Refresh the page shortly.
-            </div>
-          )} */}
-        </>
+        <div className="relative aspect-video">
+          <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
+        </div>
       )}
     </div>
   );

@@ -4,16 +4,12 @@ import { auth } from "@clerk/nextjs";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AiOutlineDollar } from "react-icons/ai";
 import {
   FaCircleCheck,
   FaCircleHalfStroke,
   FaGears,
-  FaPhotoFilm,
-  FaRegFileImage,
+  FaPhotoFilm
 } from "react-icons/fa6";
-import AttachmentForm from "../../_components/AttachmentForm";
-import PriceForm from "../../_components/PriceForm";
 import ChapterAccessForm from "./_components/ChapterAccessForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
@@ -48,35 +44,6 @@ const ChapterIdPage = async ({
   if (!chapter) {
     return redirect(`/teacher/courses/${courseId}`);
   }
-
-  // Fetch the course - GET RID OF THIS ==========================
-  const course = await db.course.findUnique({
-    where: {
-      id: courseId,
-      userId,
-    },
-    include: {
-      chapters: {
-        orderBy: {
-          position: "asc",
-        },
-      },
-      attachments: {
-        orderBy: {
-          createdAt: "desc",
-        },
-      },
-    },
-  });
-  const categories = await db.category.findMany({
-    orderBy: {
-      name: "asc",
-    },
-  });
-  if (!course) {
-    return redirect("/");
-  }
-  // Don't need any of this =====================================
 
   const requiredFields = [chapter.description, chapter.videoUrl];
 

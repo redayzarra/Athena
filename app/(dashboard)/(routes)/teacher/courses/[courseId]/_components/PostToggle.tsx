@@ -1,13 +1,12 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
+import { Course } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Course } from "@prisma/client";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 
 interface Props {
   initialData: Course;
@@ -47,7 +46,7 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-x-1">
+    <div className="flex items-center gap-x-2">
       <Switch
         id="publish-toggle"
         checked={isPublished}
@@ -55,9 +54,7 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
         onCheckedChange={handleToggle}
       />
       {isPublished ? (
-        <Badge className="cursor-pointer">
-          Published
-        </Badge>
+        <Badge className="cursor-pointer">Published</Badge>
       ) : (
         <Badge className="cursor-pointer" variant="secondary">
           Unpublished
