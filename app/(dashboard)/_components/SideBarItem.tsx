@@ -31,7 +31,7 @@ const SideBarItem = ({ icon: Icon, label, href }: Props) => {
       className={cn(
         "flex items-center font-extrabold gap-x-2 mx-4 mb-2 rounded-lg text-muted-foreground text-sm pl-9 transition-all hover:text-foreground hover:bg-card",
         isActive &&
-          "text-background bg-foreground hover:text-background hover:bg-foreground"
+          "text-background bg-foreground/95 hover:text-background hover:bg-foreground"
       )}
     >
       <div className="flex items-center gap-x-2 py-2.5">
