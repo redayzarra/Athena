@@ -113,7 +113,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <PostToggle
               initialData={course}
               courseId={courseId}
-              canPublish={!canPublish}
+              canPublish={canPublish}
             />
           </div>
         </div>

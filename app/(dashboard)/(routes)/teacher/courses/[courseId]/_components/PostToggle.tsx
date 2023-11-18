@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Course } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   initialData: Course;
@@ -19,19 +19,26 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleToggle = async () => {
+  useEffect(() => {
+    // Automatically set to unpublished if requirements are not met
+    if (!canPublish && isPublished) {
+      handleToggle(false);
+    }
+  }, [canPublish, isPublished]);
+
+  const handleToggle = async (newPublishedState?: boolean) => {
+    const publishState =
+      newPublishedState !== undefined ? newPublishedState : !isPublished;
     try {
-      // Toggle state and submit API request
-      const newPublishedState = !isPublished;
-      setIsPublished(newPublishedState);
+      setIsPublished(publishState);
       await axios.patch(`/api/courses/${courseId}`, {
-        isPublished: newPublishedState,
+        isPublished: publishState,
       });
 
       toast({
-        title: `Course ${newPublishedState ? "published" : "unpublished"}!`,
+        title: `Course ${publishState ? "published" : "unpublished"}!`,
         description: `Your course has been successfully ${
-          newPublishedState ? "published" : "unpublished"
+          publishState ? "published" : "unpublished"
         }.`,
       });
       router.refresh();
@@ -50,7 +57,7 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
       <Switch
         id="publish-toggle"
         checked={isPublished}
-        disabled={canPublish}
+        disabled={!canPublish}
         onCheckedChange={handleToggle}
       />
       {isPublished ? (
