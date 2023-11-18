@@ -1,17 +1,14 @@
 "use client";
 
-import Editor from "@/components/Editor";
-import Preview from "@/components/Preview";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
   FormField,
-  FormItem,
-  FormMessage
+  FormItem
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Chapter } from "@prisma/client";
 import axios from "axios";
@@ -19,7 +16,7 @@ import { PencilIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
+import { TbCurrencyDollar, TbCurrencyDollarOff } from "react-icons/tb";
 import * as z from "zod";
 
 interface Props {
@@ -30,14 +27,10 @@ interface Props {
 
 // Zod form
 const formSchema = z.object({
-  description: z.string().min(1, { message: "Description is required." }),
+  isFree: z.boolean().default(false),
 });
 
-const ChapterDescriptionForm = ({
-  initialData,
-  courseId,
-  chapterId,
-}: Props) => {
+const ChapterAccessForm = ({ initialData, courseId, chapterId }: Props) => {
   // State variables for toggling component
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -50,7 +43,7 @@ const ChapterDescriptionForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData.description ?? "",
+      isFree: Boolean(initialData.isFree),
     },
   });
   const { isSubmitting, isValid } = form.formState;
@@ -65,9 +58,9 @@ const ChapterDescriptionForm = ({
 
       // Success
       toast({
-        title: "Chapter Description Updated!",
+        title: "Chapter access updated!",
         description:
-          "Your chapter has been successfully updated with the new description.",
+          "Your chapter has been successfully updated with the new access settings.",
       });
       toggleEdit();
       router.refresh();
@@ -77,7 +70,7 @@ const ChapterDescriptionForm = ({
       toast({
         title: "Something went wrong.",
         description:
-          "Unable to update the description. Please check your connection and try again.",
+          "Unable to update the chapter. Please check your connection and try again.",
         variant: "destructive",
       });
     }
@@ -86,13 +79,8 @@ const ChapterDescriptionForm = ({
   return (
     <div className="mt-3 border bg-card rounded-md p-4 drop-shadow-md">
       <div className="flex items-center justify-between">
-        <span className="text-base font-medium text-primary flex items-center gap-x-2">
-          {!initialData.description || isEditing ? (
-            <FaCircleHalfStroke />
-          ) : (
-            <FaCircleCheck />
-          )}
-          <p className="text-muted-foreground">Description</p>
+        <span className="text-base font-medium text-muted-foreground flex items-center gap-x-2">
+          Settings
         </span>
         <Button
           size="sm"
@@ -114,17 +102,20 @@ const ChapterDescriptionForm = ({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 mt-4"
+            className="space-y-4 mt-2"
           >
             <FormField
               control={form.control}
-              name="description"
+              name="isFree"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-row items-start space-x-3 -space-y-1 p-2 rounded-md border">
                   <FormControl>
-                    <Editor {...field} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <div className="font-medium">Mark as open access</div>
                 </FormItem>
               )}
             />
@@ -135,13 +126,21 @@ const ChapterDescriptionForm = ({
           </form>
         </Form>
       ) : (
-        <div
-          className={cn("text-md mt-2", !initialData.description && "italic")}
-        >
-          {!initialData.description ? (
-            "No description"
+        <div className="text-md font-bold mt-2">
+          {!initialData.isFree ? (
+            <div className="flex items-center">
+              <div className="text-primary mr-2">
+                <TbCurrencyDollar size="20" />
+              </div>
+              Premium Content
+            </div>
           ) : (
-            <Preview value={initialData.description} />
+            <div className="flex items-center">
+              <div className="text-primary mr-2">
+                <TbCurrencyDollarOff size="20" />
+              </div>
+              Open Access
+            </div>
           )}
         </div>
       )}
@@ -149,4 +148,4 @@ const ChapterDescriptionForm = ({
   );
 };
 
-export default ChapterDescriptionForm;
+export default ChapterAccessForm;

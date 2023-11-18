@@ -7,16 +7,16 @@ import { AiOutlineDollar } from "react-icons/ai";
 import {
   FaCircleCheck,
   FaCircleHalfStroke,
+  FaGears,
   FaRegFileImage,
 } from "react-icons/fa6";
-import { MdOutlineCategory } from "react-icons/md";
 import AttachmentForm from "../../_components/AttachmentForm";
-import CategoryForm from "../../_components/CategoryForm";
-import DescriptionForm from "../../_components/DescriptionForm";
-import ImageForm from "../../_components/ImageForm";
 import PriceForm from "../../_components/PriceForm";
-import ChapterTitleForm from "./_components/ChapterTitleForm";
+import ChapterAccessForm from "./_components/ChapterAccessForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
+import ChapterTitleForm from "./_components/ChapterTitleForm";
+import { FaVideo } from "react-icons/fa6";
+
 
 const ChapterIdPage = async ({
   params,
@@ -130,24 +130,20 @@ const ChapterIdPage = async ({
             chapterId={chapterId}
             courseId={courseId}
           />
-          <ImageForm initialData={course} courseId={courseId} />
         </div>
 
         {/* Second Column */}
         <div>
           <div className="flex items-center gap-x-2">
             <div className="-mr-[2px]">
-              <MdOutlineCategory size="26" />
+              <FaGears size="24" />
             </div>
-            <h2 className="text-xl font-black">Course Category</h2>
+            <h2 className="text-xl font-black">Chapter Settings</h2>
           </div>
-          <CategoryForm
-            initialData={course}
+          <ChapterAccessForm
+            initialData={chapter}
+            chapterId={chapterId}
             courseId={courseId}
-            options={categories.map((category) => ({
-              label: category.name,
-              value: category.id,
-            }))}
           />
           <div className="flex items-center gap-x-2 mt-6">
             <div className="-ml-[2px] -mr-[3px]">

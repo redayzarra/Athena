@@ -10,19 +10,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Chapter, Course } from "@prisma/client";
 import axios from "axios";
-import { Loader2, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
 import * as z from "zod";
 import ChaptersList from "./ChaptersList";
-import { FaCircleHalfStroke, FaCircleCheck } from "react-icons/fa6";
 
 interface Props {
   initialData: Course & { chapters: Chapter[] };
