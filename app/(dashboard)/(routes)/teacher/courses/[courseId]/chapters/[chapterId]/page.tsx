@@ -87,11 +87,7 @@ const ChapterIdPage = async ({
             )}
           </div>
         </div>
-        <ChapterDeleteButton
-          initialData={chapter}
-          chapterId={chapterId}
-          courseId={courseId}
-        />
+        <ChapterDeleteButton chapterId={chapterId} courseId={courseId} />
       </div>
 
       {/* First Column */}

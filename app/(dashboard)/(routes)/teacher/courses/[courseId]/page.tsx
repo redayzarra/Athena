@@ -19,6 +19,7 @@ import ImageForm from "./_components/ImageForm";
 import PostToggle from "./_components/PostToggle";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
+import DeleteButton from "./_components/DeleteButton";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -51,7 +52,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   // Redirect if course is not valid
   if (!course) {
-    return redirect("/courses");
+    return redirect("/teacher/courses");
   }
 
   const categories = await db.category.findMany({
@@ -117,6 +118,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             />
           </div>
         </div>
+        <DeleteButton courseId={courseId} />
       </div>
 
       {/* First Column */}

@@ -47,3 +47,47 @@ export async function PATCH(
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { courseId: string } }
+) {
+  try {
+    // Protecting api route with user authentication
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Extracting for easier variable calling
+    const { courseId } = params;
+
+    // Find the owner of the course
+    const courseOwner = await db.course.findUnique({
+      where: {
+        id: courseId,
+        userId,
+      },
+    });
+
+    // Send error if the course owner does not exist
+    if (!courseOwner) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Find course
+    const course = await db.course.delete({
+      where: {
+        id: courseId,
+        userId,
+      },
+    });
+
+    return NextResponse.json(course);
+
+    // Error handling
+  } catch (error) {
+    console.log("[COURSE_ID: DELETE]", error);
+    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+  }
+}

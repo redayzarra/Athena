@@ -13,20 +13,19 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 interface Props {
   courseId: string;
-  chapterId: string;
 }
 
-const ChapterDeleteButton = ({ courseId, chapterId }: Props) => {
+const DeleteButton = ({ courseId }: Props) => {
   // Initialize the router
   const router = useRouter();
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
+      await axios.delete(`/api/courses/${courseId}`);
       router.refresh();
     } catch (error) {}
   };
@@ -43,7 +42,7 @@ const ChapterDeleteButton = ({ courseId, chapterId }: Props) => {
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            chapter and remove your data from our servers.
+            course and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -55,4 +54,4 @@ const ChapterDeleteButton = ({ courseId, chapterId }: Props) => {
   );
 };
 
-export default ChapterDeleteButton;
+export default DeleteButton;
