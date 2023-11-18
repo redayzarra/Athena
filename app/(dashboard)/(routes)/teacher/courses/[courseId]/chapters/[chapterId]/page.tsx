@@ -165,6 +165,7 @@ const ChapterIdPage = async ({
             initialData={chapter}
             chapterId={chapterId}
             courseId={courseId}
+            canPublish={!canPublish}
           />
           <div className="flex items-center gap-x-2 mt-6">
             <div className="-ml-[2px] -mr-[3px]">

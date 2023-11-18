@@ -21,7 +21,7 @@ export async function PATCH(
 
     // Extracting values
     const { courseId, chapterId } = params;
-    const { isPublished, ...values } = await request.json();
+    const { ...values } = await request.json();
 
     // Find the owner of the course
     const courseOwner = await db.course.findUnique({
