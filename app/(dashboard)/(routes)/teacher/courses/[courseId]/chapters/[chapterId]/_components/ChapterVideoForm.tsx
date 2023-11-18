@@ -13,6 +13,7 @@ import {
   VideoIcon,
 } from "lucide-react";
 import Image from "next/image";
+import MuxPlayer from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaCircleCheck, FaCircleHalfStroke } from "react-icons/fa6";
@@ -111,13 +112,15 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
         </div>
       ) : (
         <>
-          <div className="relative aspect-video mt-2">Video Uploaded!</div>
-          {initialData.videoUrl && !isEditing && (
+          <div className="relative aspect-video">
+            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
+          </div>
+          {/* {initialData.videoUrl && !isEditing && (
             <div className="flex text-muted-foreground text-sm justify-center items-center gap-x-1">
               <Loader2 className="animate-spin h-4 w-4 " />
               Processing your video. Refresh the page shortly.
             </div>
-          )}
+          )} */}
         </>
       )}
     </div>

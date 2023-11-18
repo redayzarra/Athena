@@ -28,9 +28,17 @@ interface Props {
   courseId: string;
 }
 
-// Zod schema
+// Custom validation function
+const isEmptyContent = (content: string): boolean => {
+  const plainText = content.replace(/<[^>]+>/g, "").trim();
+  return plainText === "";
+};
+
+// Zod form with custom validation
 const formSchema = z.object({
-  description: z.string().min(1, { message: "Description is required." }),
+  description: z.string().refine((val) => !isEmptyContent(val), {
+    message: "Description is required.",
+  }),
 });
 
 const DescriptionForm = ({ initialData, courseId }: Props) => {
@@ -54,6 +62,17 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
   // Submitting functionality
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      // Check if the description is effectively empty
+      if (isEmptyContent(values.description)) {
+        toast({
+          title: "Invalid Description",
+          description: "Please provide a valid chapter description.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // API Call
       await axios.patch(`/api/courses/${courseId}`, values);
 
       // Success

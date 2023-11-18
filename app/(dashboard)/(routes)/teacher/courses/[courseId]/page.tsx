@@ -102,9 +102,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
         </div>
         {completedFields === totalFields && (
-          <Button size="sm" className="ml-2 font-bold">
-            Publish
-          </Button>
+          <Link href={`/teacher/courses/${courseId}`}>
+            <Button size="sm" className="ml-2 font-bold">
+              Save
+            </Button>
+          </Link>
         )}
       </div>
 
