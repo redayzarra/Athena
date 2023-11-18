@@ -63,7 +63,7 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
           ) : (
             <FaCircleCheck />
           )}
-          <p className="text-muted-foreground">Content</p>
+          <p className="text-muted-foreground">Video</p>
         </span>
         <Button
           onClick={toggleEdit}

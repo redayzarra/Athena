@@ -106,7 +106,7 @@ const ChapterIdPage = async ({
             <div className="-mr-[2px]">
               <FaPhotoFilm size="22" />
             </div>
-            <h2 className="text-xl font-black">Video</h2>
+            <h2 className="text-xl font-black">Chapter Content</h2>
           </div>
           <ChapterVideoForm
             initialData={chapter}
