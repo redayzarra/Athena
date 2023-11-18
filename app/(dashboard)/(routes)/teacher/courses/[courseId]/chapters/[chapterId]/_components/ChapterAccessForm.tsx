@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaUnlock } from "react-icons/fa";
 import * as z from "zod";
+import { Separator } from "@/components/ui/separator";
 
 interface Props {
   initialData: Chapter;
@@ -165,7 +166,7 @@ const ChapterAccessForm = ({
           </form>
         </Form>
       ) : (
-        <>
+        <div className="space-y-2">
           <div className="text-md font-bold mt-2">
             {!initialData.isFree ? (
               <div className="flex items-center">
@@ -183,7 +184,8 @@ const ChapterAccessForm = ({
               </div>
             )}
           </div>
-          <div className="text-md font-bold mt-3">
+          <Separator />
+          <div className="text-md font-bold">
             {!initialData.isPublished ? (
               <div className="flex items-center">
                 <div className="text-primary mr-2">
@@ -200,7 +202,7 @@ const ChapterAccessForm = ({
               </div>
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
