@@ -16,7 +16,7 @@ const Editor = ({ onChange, value }: Props) => {
   );
 
   return (
-    <div className="bg-transparent border border-dashed rounded-md">
+    <div className="bg-background border border-dashed rounded-md">
       <ReactQuill theme="snow" value={value} onChange={onChange} />
     </div>
   );

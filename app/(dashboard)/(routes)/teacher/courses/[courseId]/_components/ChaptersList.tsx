@@ -47,8 +47,8 @@ const ChaptersList = ({ onEdit, onReorder, items }: Props) => {
 
     const bulkUpdateData = updatedChapters.map((chapter) => ({
       id: chapter.id,
-      position: items.findIndex((item) => item.id === chapter.id)
-    }))
+      position: items.findIndex((item) => item.id === chapter.id),
+    }));
 
     onReorder(bulkUpdateData);
   };
@@ -71,7 +71,7 @@ const ChaptersList = ({ onEdit, onReorder, items }: Props) => {
                 {(provided) => (
                   <div
                     className={cn(
-                      "flex items-center justify-between gap-x-2 bg-background border border-muted-foreground/20 text-muted-foreground rounded-md mb-2 text-sm",
+                      "flex items-center justify-between gap-x-2 dark:bg-background bg-muted-foreground/5 border border-muted-foreground/20 text-muted-foreground rounded-md mb-2 text-sm",
                       chapter.isPublished && "bg-primary/20 dark:bg-primary/30"
                     )}
                     ref={provided.innerRef}
@@ -81,7 +81,7 @@ const ChaptersList = ({ onEdit, onReorder, items }: Props) => {
                       className={cn(
                         "px-2 py-2.5 border-r border-r-muted-foreground/20 hover:bg-foreground hover:text-background rounded-l-md transition-all",
                         chapter.isPublished &&
-                          "hover:bg-primary/60 dark:hover:bg-primary dark:hover:text-foreground"
+                          "hover:bg-primary/70 dark:hover:bg-primary dark:hover:text-foreground"
                       )}
                       {...provided.dragHandleProps}
                     >

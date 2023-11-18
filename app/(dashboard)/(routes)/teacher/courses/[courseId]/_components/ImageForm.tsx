@@ -80,16 +80,18 @@ const ImageForm = ({ initialData, courseId }: Props) => {
         </Button>
       </div>
       {isEditing ? (
-        <div className="bg-background rounded-md flex flex-col items-center justify-center">
-          <FileUpload
-            endpoint="courseImage"
-            onChange={(url) => {
-              if (url) {
-                onSubmit({ imageUrl: url });
-              }
-            }}
-          />
-          <p className="text-xs text-muted-foreground font-bold">
+        <div className="rounded-md flex flex-col items-center justify-center">
+          <div className="dark:bg-background dark:border dark:border-dashed rounded-md">
+            <FileUpload
+              endpoint="courseImage"
+              onChange={(url) => {
+                if (url) {
+                  onSubmit({ imageUrl: url });
+                }
+              }}
+            />
+          </div>
+          <p className="text-xs mt-2 text-muted-foreground font-bold">
             16:9 aspect ratio recommended
           </p>
         </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Editor from "@/components/Editor";
+import Preview from "@/components/Preview";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,7 +11,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -113,16 +114,12 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g 'Master the basics of video editing with Premiere Pro! This guide is...'"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
+                  <FormDescription className="ml-1">
                     Provide a brief description of your course.
                   </FormDescription>
+                  <FormControl>
+                    <Editor {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -134,9 +131,15 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
           </form>
         </Form>
       ) : (
-        <p className={cn("text-md mt-2", !initialData.description && "italic")}>
-          {initialData.description || "No description"}
-        </p>
+        <div
+          className={cn("text-md mt-2", !initialData.description && "italic")}
+        >
+          {!initialData.description ? (
+            "No description"
+          ) : (
+            <Preview value={initialData.description} />
+          )}
+        </div>
       )}
     </div>
   );
