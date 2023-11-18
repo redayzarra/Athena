@@ -97,7 +97,7 @@ const ChapterVideoForm = ({ initialData, courseId }: Props) => {
           </p>
         </div>
       ) : !initialData.videoUrl ? (
-        <div className="flex items-center justify-center h-[190px] rounded-md bg-background">
+        <div className="flex items-center justify-center h-[190px] rounded-md bg-muted-foreground/5 border border-dashed dark:bg-background">
           <ImageIcon className="h-10 w-10 text-foreground" />
         </div>
       ) : (

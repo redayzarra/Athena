@@ -84,12 +84,14 @@ const ChapterIdPage = async ({
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
 
+  const canPublish = completedFields === totalFields;
+
   return (
     <div>
       <div className="flex justify-between">
         <div className="flex flex-col">
           <div className="flex">
-            <Link href={`/teacher/courses`}>
+            <Link href={`/teacher/courses/${courseId}`}>
               <ArrowLeft className="-ml-1 mr-[12px] mt-2" />
             </Link>
             <ChapterTitleForm
