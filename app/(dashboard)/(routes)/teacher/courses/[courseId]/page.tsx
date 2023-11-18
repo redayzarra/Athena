@@ -17,6 +17,7 @@ import DescriptionForm from "./_components/DescriptionForm";
 import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
+import { Button } from "@/components/ui/button";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -73,7 +74,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex justify-between">
         <div className="flex flex-col">
           <div className="flex">
             <Link href={`/teacher/courses`}>
@@ -100,6 +101,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             )}
           </div>
         </div>
+        {completedFields === totalFields && (
+          <Button size="sm" className="ml-2 font-bold">
+            Publish
+          </Button>
+        )}
       </div>
 
       {/* First Column */}

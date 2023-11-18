@@ -8,7 +8,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
@@ -129,7 +129,12 @@ const ChapterDescriptionForm = ({
               )}
             />
 
-            <Button disabled={isSubmitting} type="submit">
+            <Button
+              disabled={isSubmitting}
+              className="font-semibold"
+              size="sm"
+              type="submit"
+            >
               Save
             </Button>
           </form>

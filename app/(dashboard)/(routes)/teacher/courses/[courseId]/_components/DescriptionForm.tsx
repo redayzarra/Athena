@@ -125,7 +125,12 @@ const DescriptionForm = ({ initialData, courseId }: Props) => {
               )}
             />
 
-            <Button disabled={isSubmitting} type="submit">
+            <Button
+              disabled={isSubmitting}
+              className="font-semibold"
+              size="sm"
+              type="submit"
+            >
               Save
             </Button>
           </form>

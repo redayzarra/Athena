@@ -99,7 +99,7 @@ const TitleForm = ({ initialData, courseId }: Props) => {
             </form>
           </Form>
         ) : (
-          <span className="text-3xl font-black line-clamp-3">
+          <span className="text-3xl font-black line-clamp-2">
             {initialData.title}
           </span>
         )}
@@ -128,8 +128,8 @@ const TitleForm = ({ initialData, courseId }: Props) => {
         <Button
           disabled={isSubmitting}
           size="sm"
-          className="ml-1 drop-shadow-xl"
-          variant="default"
+          className="ml-2 drop-shadow-xl"
+          variant="secondary"
           form="TitleForm"
           type="submit"
         >

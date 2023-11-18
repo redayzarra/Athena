@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
@@ -8,6 +9,7 @@ import {
   FaCircleCheck,
   FaCircleHalfStroke,
   FaGears,
+  FaPhotoFilm,
   FaRegFileImage,
 } from "react-icons/fa6";
 import AttachmentForm from "../../_components/AttachmentForm";
@@ -15,8 +17,7 @@ import PriceForm from "../../_components/PriceForm";
 import ChapterAccessForm from "./_components/ChapterAccessForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
-import { FaVideo } from "react-icons/fa6";
-
+import ChapterVideoForm from "./_components/ChapterVideoForm";
 
 const ChapterIdPage = async ({
   params,
@@ -85,16 +86,16 @@ const ChapterIdPage = async ({
 
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex justify-between">
         <div className="flex flex-col">
           <div className="flex">
-            <Link href={`/teacher/courses/${courseId}`}>
+            <Link href={`/teacher/courses`}>
               <ArrowLeft className="-ml-1 mr-[12px] mt-2" />
             </Link>
             <ChapterTitleForm
+              chapterId={chapterId}
               initialData={chapter}
               courseId={courseId}
-              chapterId={chapterId}
             />
           </div>
 
@@ -116,6 +117,11 @@ const ChapterIdPage = async ({
             )}
           </div>
         </div>
+        {completedFields === totalFields && (
+          <Button size="sm" className="ml-2 font-bold">
+            Publish
+          </Button>
+        )}
       </div>
 
       {/* First Column */}
@@ -126,6 +132,17 @@ const ChapterIdPage = async ({
             <h2 className="text-xl font-black">Customize Chapter</h2>
           </div>
           <ChapterDescriptionForm
+            initialData={chapter}
+            chapterId={chapterId}
+            courseId={courseId}
+          />
+          <div className="flex items-center gap-x-2 mt-6">
+            <div className="-mr-[2px]">
+              <FaPhotoFilm size="22" />
+            </div>
+            <h2 className="text-xl font-black">Video</h2>
+          </div>
+          <ChapterVideoForm
             initialData={chapter}
             chapterId={chapterId}
             courseId={courseId}

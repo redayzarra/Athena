@@ -146,7 +146,12 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
                 )}
               />
 
-              <Button disabled={isSubmitting} type="submit">
+              <Button
+                disabled={isSubmitting}
+                className="font-semibold"
+                size="sm"
+                type="submit"
+              >
                 Create
               </Button>
             </form>

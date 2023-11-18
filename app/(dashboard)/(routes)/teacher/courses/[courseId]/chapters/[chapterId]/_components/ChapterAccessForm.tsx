@@ -2,12 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Chapter } from "@prisma/client";
@@ -120,7 +115,12 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: Props) => {
               )}
             />
 
-            <Button disabled={isSubmitting} type="submit">
+            <Button
+              disabled={isSubmitting}
+              className="font-semibold"
+              size="sm"
+              type="submit"
+            >
               Save
             </Button>
           </form>

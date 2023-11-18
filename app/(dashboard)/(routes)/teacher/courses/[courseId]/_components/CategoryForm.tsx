@@ -120,7 +120,12 @@ const CategoryForm = ({ initialData, courseId, options }: Props) => {
               )}
             />
 
-            <Button disabled={isSubmitting} type="submit">
+            <Button
+              disabled={isSubmitting}
+              className="font-semibold"
+              size="sm"
+              type="submit"
+            >
               Save
             </Button>
           </form>
