@@ -30,7 +30,12 @@ const formSchema = z.object({
   isPublished: z.boolean().default(false),
 });
 
-const ChapterAccessForm = ({ initialData, courseId, chapterId, canPublish }: Props) => {
+const ChapterAccessForm = ({
+  initialData,
+  courseId,
+  chapterId,
+  canPublish,
+}: Props) => {
   // State variables for toggling component
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -44,6 +49,7 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId, canPublish }: Pro
     resolver: zodResolver(formSchema),
     defaultValues: {
       isFree: Boolean(initialData.isFree),
+      isPublished: Boolean(initialData.isPublished),
     },
   });
   const { isSubmitting, isValid } = form.formState;
