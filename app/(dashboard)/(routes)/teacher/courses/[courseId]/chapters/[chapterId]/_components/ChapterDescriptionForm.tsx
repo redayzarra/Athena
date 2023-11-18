@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -121,6 +122,9 @@ const ChapterDescriptionForm = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription className="ml-1">
+                    Provide a brief description of your chapter.
+                  </FormDescription>
                   <FormControl>
                     <Editor {...field} />
                   </FormControl>

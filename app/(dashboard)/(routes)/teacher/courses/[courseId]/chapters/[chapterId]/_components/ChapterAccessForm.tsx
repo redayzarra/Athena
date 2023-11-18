@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Chapter } from "@prisma/client";
@@ -105,12 +107,15 @@ const ChapterAccessForm = ({ initialData, courseId, chapterId }: Props) => {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-start space-x-3 -space-y-1 p-2 rounded-md border">
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        id="open-access"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <Label htmlFor="open-access">Open Access</Label>
+                    </div>
                   </FormControl>
-                  <div className="font-medium">Mark as open access</div>
                 </FormItem>
               )}
             />
