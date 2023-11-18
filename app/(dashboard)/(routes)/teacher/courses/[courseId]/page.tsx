@@ -18,6 +18,8 @@ import ImageForm from "./_components/ImageForm";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
 import { Button } from "@/components/ui/button";
+import PostToggle from "./_components/PostToggle";
+import { Separator } from "@/components/ui/separator";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -72,6 +74,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
 
+  const canPublish = completedFields === totalFields;
+
   return (
     <div>
       <div className="flex justify-between">
@@ -83,31 +87,37 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <TitleForm initialData={course} courseId={course.id} />
           </div>
 
-          <div className="ml-8 mt-2">
-            {completedFields === totalFields ? (
-              <div className="font-medium text-base text-primary flex items-center gap-x-2">
-                <FaCircleCheck />
-                <p className="text-muted-foreground">
-                  Completed all fields {completionText}
-                </p>
-              </div>
-            ) : (
-              <div className="font-medium text-base text-primary flex items-center gap-x-2">
-                <FaCircleHalfStroke />
-                <p className="text-muted-foreground">
-                  Complete required fields {completionText}
-                </p>
-              </div>
-            )}
+          {/* Group completion text and PostToggle together */}
+          <div className="flex items-center ml-8 mt-2 gap-x-2">
+            {/* Completion Text */}
+            <div>
+              {completedFields === totalFields ? (
+                <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                  <FaCircleCheck />
+                  <p className="text-muted-foreground">
+                    Completed all fields {completionText}
+                  </p>
+                </div>
+              ) : (
+                <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                  <FaCircleHalfStroke />
+                  <p className="text-muted-foreground">
+                    Complete required fields {completionText}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <Separator orientation="vertical" />
+
+            {/* PostToggle component */}
+            <PostToggle
+              initialData={course}
+              courseId={courseId}
+              canPublish={!canPublish}
+            />
           </div>
         </div>
-        {completedFields === totalFields && (
-          <Link href={`/teacher/courses/${courseId}`}>
-            <Button size="sm" className="ml-2 font-bold">
-              Save
-            </Button>
-          </Link>
-        )}
       </div>
 
       {/* First Column */}

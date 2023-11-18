@@ -129,7 +129,7 @@ const ChapterIdPage = async ({
       </div>
 
       {/* First Column */}
-      <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8 mt-10">
         <div>
           <div className="flex items-center gap-x-2">
             <LayoutDashboard />
@@ -167,20 +167,6 @@ const ChapterIdPage = async ({
             courseId={courseId}
             canPublish={!canPublish}
           />
-          <div className="flex items-center gap-x-2 mt-6">
-            <div className="-ml-[2px] -mr-[3px]">
-              <AiOutlineDollar size="28" />
-            </div>
-            <h2 className="text-xl font-black">Course Pricing</h2>
-          </div>
-          <PriceForm initialData={course} courseId={courseId} />
-          <div className="">
-            <div className="flex items-center gap-x-2 mt-6">
-              <FaRegFileImage size="24" />
-              <h2 className="text-xl font-black">Resources</h2>
-            </div>
-            <AttachmentForm initialData={course} courseId={courseId} />
-          </div>
         </div>
       </div>
     </div>
