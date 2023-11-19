@@ -167,7 +167,7 @@ const ChapterAccessForm = ({
         </Form>
       ) : (
         <div className="space-y-2">
-          <div className="text-md font-bold mt-2">
+          <div className="text-md font-semibold mt-2">
             {!initialData.isFree ? (
               <div className="flex items-center">
                 <div className="text-primary mr-2">
@@ -185,7 +185,7 @@ const ChapterAccessForm = ({
             )}
           </div>
           <Separator />
-          <div className="text-md font-bold">
+          <div className="text-md font-semibold">
             {!initialData.isPublished ? (
               <div className="flex items-center">
                 <div className="text-primary mr-2">

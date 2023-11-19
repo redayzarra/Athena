@@ -40,7 +40,7 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
       toast({
         title: "Video Updated!",
         description:
-          "Your course has been successfully updated with the new video.",
+          "Your course has been successfully updated with the new video. Please refresh the page.",
       });
       toggleEdit();
       router.refresh();
