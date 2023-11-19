@@ -173,7 +173,7 @@ const ChapterForm = ({ initialData, courseId }: Props) => {
             />
           </p>
           <div className="text-xs text-muted-foreground mt-4">
-            Drag and drop to reorder chapters
+            Drag and drop to reorder. Publish at least one chapter.
           </div>
         </>
       )}
