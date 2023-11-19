@@ -96,6 +96,26 @@ export async function PATCH(
       });
     }
 
+    // After updating the chapter, check if any chapters are still published
+    const publishedChapters = await db.chapter.count({
+      where: {
+        courseId,
+        isPublished: true,
+      },
+    });
+
+    // If no chapters are published, set the course's isPublished to false
+    if (publishedChapters === 0) {
+      await db.course.update({
+        where: {
+          id: courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      });
+    }
+
     return NextResponse.json(updatedChapter);
 
     // Error handling

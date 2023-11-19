@@ -24,51 +24,12 @@ export async function PATCH(
     const values = await request.json();
     let { price } = values;
 
-    // Parse the price string to a float
-    price = parseFloat(price);
+    // Parse the price string to a float and round it
+    price = isNaN(parseFloat(price))
+      ? 0
+      : Math.round((parseFloat(price) + Number.EPSILON) * 100) / 100;
 
-    // Set price as 0 if it is not a number
-    if (isNaN(price)) {
-      price = 0;
-    } else {
-      // Round the price to two decimal places if it is a number
-      price = Math.round((price + Number.EPSILON) * 100) / 100;
-    }
-
-    // Find the course
-    const course = await db.course.findUnique({
-      where: {
-        id: courseId,
-        userId,
-      },
-      include: {
-        chapters: {
-          include: {
-            muxData: true,
-          },
-        },
-      },
-    });
-
-    // Redirect if course is not found
-    if (!course) {
-      return NextResponse.json({}, { status: 401 });
-    }
-
-    // Checking if at least one chapter is published
-    const hasPublishedChapter = course.chapters.some(
-      (chapter) => chapter.isPublished
-    );
-
-    // Check for required fields
-    const shouldUnpublish =
-      !course.title ||
-      !course.description ||
-      !course.imageUrl ||
-      !course.categoryId ||
-      !hasPublishedChapter;
-
-    // Update the course
+    // Update the course details
     const updatedCourse = await db.course.update({
       where: {
         id: courseId,
@@ -76,8 +37,7 @@ export async function PATCH(
       },
       data: {
         ...values,
-        price, // Use the rounded price
-        isPublished: shouldUnpublish ? false : values.isPublished,
+        price,
       },
     });
 
