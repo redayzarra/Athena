@@ -37,14 +37,31 @@ export async function PATCH(
       return NextResponse.json({}, { status: 401 });
     }
 
-    // Find the chapter from the database and update it
-    const chapter = await db.chapter.update({
+    // Find the chapter from the database
+    const chapter = await db.chapter.findUnique({
+      where: {
+        id: chapterId,
+        courseId,
+      },
+    });
+
+    if (!chapter) {
+      return NextResponse.json({ error: "Chapter not found" }, { status: 404 });
+    }
+
+    // Check for required fields
+    const shouldUnpublish =
+      !chapter.title || !chapter.description || !chapter.videoUrl;
+
+    // Update the chapter in the database
+    const updatedChapter = await db.chapter.update({
       where: {
         id: chapterId,
         courseId,
       },
       data: {
         ...values,
+        isPublished: shouldUnpublish ? false : values.isPublished,
       },
     });
 
@@ -80,7 +97,7 @@ export async function PATCH(
       });
     }
 
-    return NextResponse.json(chapter);
+    return NextResponse.json(updatedChapter);
 
     // Error handling
   } catch (error) {
