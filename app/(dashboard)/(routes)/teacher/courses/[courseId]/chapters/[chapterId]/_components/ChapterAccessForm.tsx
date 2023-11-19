@@ -5,6 +5,7 @@ import { FaLock } from "react-icons/fa";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +17,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaUnlock } from "react-icons/fa";
 import * as z from "zod";
-import { Separator } from "@/components/ui/separator";
 
 interface Props {
   initialData: Chapter;

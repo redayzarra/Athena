@@ -19,22 +19,57 @@ export async function PATCH(
       return NextResponse.json({}, { status: 401 });
     }
 
+    // Extracting values
+    const { courseId } = params;
     const values = await request.json();
+    let { price } = values;
 
     // Parse the price string to a float
-    let { price } = values;
     price = parseFloat(price);
 
-    // Set price as null if it is not a number
+    // Set price as 0 if it is not a number
     if (isNaN(price)) {
-      price = null;
+      price = 0;
     } else {
       // Round the price to two decimal places if it is a number
       price = Math.round((price + Number.EPSILON) * 100) / 100;
     }
 
-    const { courseId } = params;
-    const course = await db.course.update({
+    // Find the course
+    const course = await db.course.findUnique({
+      where: {
+        id: courseId,
+        userId,
+      },
+      include: {
+        chapters: {
+          include: {
+            muxData: true,
+          },
+        },
+      },
+    });
+
+    // Redirect if course is not found
+    if (!course) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Checking if at least one chapter is published
+    const hasPublishedChapter = course.chapters.some(
+      (chapter) => chapter.isPublished
+    );
+
+    // Check for required fields
+    const shouldUnpublish =
+      !course.title ||
+      !course.description ||
+      !course.imageUrl ||
+      !course.categoryId ||
+      !hasPublishedChapter;
+
+    // Update the course
+    const updatedCourse = await db.course.update({
       where: {
         id: courseId,
         userId,
@@ -42,10 +77,11 @@ export async function PATCH(
       data: {
         ...values,
         price, // Use the rounded price
+        isPublished: shouldUnpublish ? false : values.isPublished,
       },
     });
 
-    return NextResponse.json(course);
+    return NextResponse.json(updatedCourse);
 
     // Error handling
   } catch (error) {
@@ -108,6 +144,7 @@ export async function DELETE(
       }
     }
 
+    // Delete the course
     const deletedCourse = await db.course.delete({
       where: {
         id: courseId,

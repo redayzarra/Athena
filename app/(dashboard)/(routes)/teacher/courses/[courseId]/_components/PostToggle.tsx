@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Course } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   initialData: Course;
@@ -18,6 +18,13 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
   const [isPublished, setIsPublished] = useState(initialData.isPublished);
   const { toast } = useToast();
   const router = useRouter();
+
+  useEffect(() => {
+    // Automatically set to unpublished if requirements are not met
+    if (!canPublish && isPublished) {
+      handleToggle(false);
+    }
+  }, [canPublish, isPublished]);
 
   const handleToggle = async (newPublishedState?: boolean) => {
     const publishState =
@@ -54,9 +61,11 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
         onCheckedChange={handleToggle}
       />
       {isPublished ? (
-        <Badge>Posted</Badge>
+        <Badge className="cursor-pointer">Posted</Badge>
       ) : (
-        <Badge variant="secondary">Drafted</Badge>
+        <Badge className="cursor-pointer" variant="secondary">
+          Drafted
+        </Badge>
       )}
     </div>
   );
