@@ -14,6 +14,8 @@ import ChapterDeleteButton from "./_components/ChapterDeleteButton";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterVideoForm from "./_components/ChapterVideoForm";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
 const ChapterIdPage = async ({
   params,
@@ -69,21 +71,34 @@ const ChapterIdPage = async ({
             />
           </div>
 
-          <div className="ml-8 mt-2">
-            {completedFields === totalFields ? (
-              <div className="font-medium text-base text-primary flex items-center gap-x-2">
-                <FaCircleCheck />
-                <p className="text-muted-foreground">
-                  Completed all fields {completionText}
-                </p>
-              </div>
+          {/* Group completion text and post badge together */}
+          <div className="flex items-center ml-8 mt-2 gap-x-3">
+            {/* Completion Text */}
+            <div>
+              {completedFields === totalFields ? (
+                <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                  <FaCircleCheck />
+                  <p className="text-muted-foreground">
+                    Completed all fields {completionText}
+                  </p>
+                </div>
+              ) : (
+                <div className="font-medium text-base text-primary flex items-center gap-x-2">
+                  <FaCircleHalfStroke />
+                  <p className="text-muted-foreground">
+                    Complete required fields {completionText}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <Separator orientation="vertical" />
+
+            {/* Post badge */}
+            {chapter.isPublished ? (
+              <Badge>Posted</Badge>
             ) : (
-              <div className="font-medium text-base text-primary flex items-center gap-x-2">
-                <FaCircleHalfStroke />
-                <p className="text-muted-foreground">
-                  Complete required fields {completionText}
-                </p>
-              </div>
+              <Badge variant="secondary">Drafted</Badge>
             )}
           </div>
         </div>

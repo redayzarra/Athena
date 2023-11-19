@@ -88,7 +88,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
 
           {/* Group completion text and PostToggle together */}
-          <div className="flex items-center ml-8 mt-2 gap-x-2">
+          <div className="flex items-center ml-8 mt-2 gap-x-3">
             {/* Completion Text */}
             <div>
               {completedFields === totalFields ? (
