@@ -1,8 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { NextRequest, NextResponse } from "next/server";
 import Mux from "@mux/mux-node";
-import { DeletedObject } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
