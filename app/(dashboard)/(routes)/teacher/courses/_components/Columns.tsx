@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { Course as PrismaCourse, Category } from "@prisma/client";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import Link from "next/link";
 import { FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 
 // Extend the Course type to include the category object
@@ -52,11 +53,20 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
         </Button>
       );
     },
-    cell: (info: CellContext<CourseWithCategory, unknown>) => (
-      <span className="line-clamp-2 font-medium">
-        {info.getValue() as string}
-      </span>
-    ),
+    cell: (info: CellContext<CourseWithCategory, unknown>) => {
+      // Access the entire row's original data
+      const rowData = info.row.original;
+
+      return (
+        <Link href={`/teacher/courses/${rowData.id}`}>
+          {" "}
+          {/* Use rowData.id for courseId */}
+          <a className="line-clamp-2 font-medium">
+            {info.getValue() as string}
+          </a>
+        </Link>
+      );
+    },
   },
   {
     accessorFn: (row) => row.price, // Return the actual numerical value

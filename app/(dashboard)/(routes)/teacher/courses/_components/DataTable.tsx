@@ -23,30 +23,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useToast } from "@/components/ui/use-toast";
+
+import axios from "axios";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { ChevronDown, Loader2 } from "lucide-react";
-import React, { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-import {
-  AlertDialogHeader,
-  AlertDialogFooter,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogCancel,
   AlertDialogAction,
-} from "@radix-ui/react-alert-dialog";
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
 interface WithId {
   id: string;
@@ -130,41 +130,48 @@ export function DataTable<TData extends WithId, TValue>({
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter courses..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="flex items-center justify-between py-4">
+        <div className="flex items-center space-x-2">
+          {/* Search Bar */}
+          <Input
+            placeholder="Filter courses..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+          />
+
+          {/* Actions */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Show <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <Link href={"/teacher/create"}>
+          <Button size="sm">Create</Button>
+        </Link>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -222,24 +229,15 @@ export function DataTable<TData extends WithId, TValue>({
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
-          {/* <Button
-            variant="outline"
-            size="sm"
-            onClick={deleteSelectedCourses}
-            disabled={Object.keys(rowSelection).length === 0}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="animate-spin h-4 w-4 mr-2" />
-                Loading
-              </>
-            ) : (
-              "Delete"
-            )}
-          </Button> */}
           <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="outline" size="sm">
+            <AlertDialogTrigger
+              disabled={Object.keys(rowSelection).length === 0}
+            >
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={Object.keys(rowSelection).length === 0}
+              >
                 Delete
               </Button>
             </AlertDialogTrigger>
@@ -248,7 +246,7 @@ export function DataTable<TData extends WithId, TValue>({
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This action cannot be undone. This will permanently delete
-                  your courses and remove your data from our servers.
+                  your account and remove your data from our servers.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
