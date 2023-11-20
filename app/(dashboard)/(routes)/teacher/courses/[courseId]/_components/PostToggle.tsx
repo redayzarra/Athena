@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
+import { useConfettiStore } from "@/hooks/useConfettiStore";
 import { Course } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
   const [isPublished, setIsPublished] = useState(initialData.isPublished);
   const { toast } = useToast();
   const router = useRouter();
+  const confetti = useConfettiStore();
 
   const handleToggle = async (newPublishedState?: boolean) => {
     const publishState =
@@ -28,13 +30,22 @@ const PostToggle = ({ initialData, courseId, canPublish }: Props) => {
         isPublished: publishState,
       });
 
+      router.refresh();
+      
+      // Trigger confetti only when publishing the course
+      if (publishState) {
+        confetti.onOpen();
+      }
+
+      // Success toast
       toast({
         title: `Course ${publishState ? "published" : "unpublished"}!`,
         description: `Your course has been successfully ${
           publishState ? "published" : "unpublished"
         }.`,
       });
-      router.refresh();
+
+      // Error handling
     } catch (error) {
       toast({
         title: "Something went wrong.",
