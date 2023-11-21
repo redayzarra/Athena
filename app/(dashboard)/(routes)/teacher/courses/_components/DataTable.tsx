@@ -61,10 +61,14 @@ export function DataTable<TData extends WithId, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // Define the initial column visibility state
+  const initialColumnVisibility: VisibilityState = {
+    createdAt: false,
+  };
   // State variables for sorting, filtering, etc.
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialColumnVisibility);
   const [rowSelection, setRowSelection] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -128,6 +132,21 @@ export function DataTable<TData extends WithId, TValue>({
     }
   };
 
+  // Define the type for the columnNames object
+  type ColumnNameMap = {
+    [key: string]: string; // This is the index signature
+  };
+
+  // Define the columnNames object with the type
+  const columnNames: ColumnNameMap = {
+    title: "Title",
+    price: "Price",
+    isPublished: "Published",
+    category: "Category",
+    createdAt: "Created",
+    updatedAt: "Last Modified",
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
@@ -144,7 +163,7 @@ export function DataTable<TData extends WithId, TValue>({
           {/* Actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
+              <Button variant="outline">
                 Show <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -153,6 +172,8 @@ export function DataTable<TData extends WithId, TValue>({
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
                 .map((column) => {
+                  // Use the mapping to get user-friendly name
+                  const displayName = columnNames[column.id] || column.id;
                   return (
                     <DropdownMenuCheckboxItem
                       key={column.id}
@@ -162,7 +183,7 @@ export function DataTable<TData extends WithId, TValue>({
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id}
+                      {displayName}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
@@ -246,7 +267,7 @@ export function DataTable<TData extends WithId, TValue>({
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  your course and remove your data from our servers.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

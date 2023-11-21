@@ -152,6 +152,21 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
     ),
   },
   {
+    accessorFn: (row) => formatDate(row.createdAt), // Format the date
+    id: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Created
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorFn: (row) => formatDate(row.updatedAt), // Format the date
     id: "updatedAt",
     header: ({ column }) => {
