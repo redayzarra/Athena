@@ -144,7 +144,7 @@ export function DataTable<TData extends WithId, TValue>({
     isPublished: "Published",
     category: "Category",
     createdAt: "Created",
-    updatedAt: "Last Modified",
+    updatedAt: "Modified",
   };
 
   return (

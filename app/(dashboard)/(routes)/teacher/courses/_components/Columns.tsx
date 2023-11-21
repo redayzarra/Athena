@@ -24,7 +24,7 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        className="rounded-[0.25rem]"
+        className="rounded-[0.25rem] mt-1"
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
@@ -175,7 +175,7 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Last Modified
+          Modified
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
