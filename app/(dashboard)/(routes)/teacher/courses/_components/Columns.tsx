@@ -1,12 +1,21 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/formatDate";
 import { formatPrice } from "@/lib/formatPrice";
-import { Course as PrismaCourse, Category } from "@prisma/client";
+import { Category, Course as PrismaCourse } from "@prisma/client";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 
@@ -61,7 +70,7 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
         <Link href={`/teacher/courses/${rowData.id}`}>
           {" "}
           {/* Use rowData.id for courseId */}
-          <a className="line-clamp-2 font-medium">
+          <a className="line-clamp-2 font-medium ml-4">
             {info.getValue() as string}
           </a>
         </Link>
@@ -121,11 +130,13 @@ export const columns: ColumnDef<CourseWithCategory>[] = [
     cell: (info: CellContext<CourseWithCategory, unknown>) => {
       const isPublished = info.getValue() as boolean;
       return (
-        <div className="flex justify-center items-center">
+        <div className="ml-4">
           {isPublished ? (
-            <FaRegCheckCircle className="h-5 w-5 text-primary" />
+            // <FaRegCheckCircle className="h-5 w-5 text-primary" />
+            <Badge>Published</Badge>
           ) : (
-            <FaRegTimesCircle className="h-5 w-5 text-muted-foreground" />
+            // <FaRegTimesCircle className="h-5 w-5 text-muted-foreground" />
+            <Badge variant="secondary">Draft</Badge>
           )}
         </div>
       );

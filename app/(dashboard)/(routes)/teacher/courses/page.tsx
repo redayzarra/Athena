@@ -25,7 +25,8 @@ const CoursesPage = async () => {
   });
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="mx-auto space-y-4">
+      <h1 className="text-4xl font-black">Your Courses</h1>
       <DataTable columns={columns} data={courses} />
     </div>
   );

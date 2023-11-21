@@ -26,7 +26,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 import axios from "axios";
-import { ChevronDown, Loader2 } from "lucide-react";
+import { ChevronDown, Loader2, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -64,11 +64,14 @@ export function DataTable<TData extends WithId, TValue>({
   // Define the initial column visibility state
   const initialColumnVisibility: VisibilityState = {
     createdAt: false,
+    updatedAt: false,
   };
   // State variables for sorting, filtering, etc.
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(initialColumnVisibility);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    initialColumnVisibility
+  );
   const [rowSelection, setRowSelection] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -191,7 +194,10 @@ export function DataTable<TData extends WithId, TValue>({
           </DropdownMenu>
         </div>
         <Link href={"/teacher/create"}>
-          <Button size="sm">Create</Button>
+          <Button size="sm" className="font-semibold">
+            <PlusCircle className="h-4 w-4 mr-2" />
+            Create
+          </Button>
         </Link>
       </div>
       <div className="rounded-md border">
@@ -245,9 +251,9 @@ export function DataTable<TData extends WithId, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+        <div className="flex-1 text-sm text-muted-foreground ml-1">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredRowModel().rows.length} course(s) selected.
         </div>
         <div className="space-x-2">
           <AlertDialog>
