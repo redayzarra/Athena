@@ -10,7 +10,8 @@ const SearchPage = async () => {
   });
 
   return (
-    <div className="">
+    <div className="space-y-4">
+      <h1 className="text-4xl font-black">Browse Courses</h1>
       <Categories items={categories} />
     </div>
   );
