@@ -9,7 +9,7 @@ const MobileSideBar = () => {
       <SheetTrigger className="md:hidden hover:opacity-75 transition-all">
         <CgMenuLeftAlt size={24} color={cn("bg-foreground")} />
       </SheetTrigger>
-      <SheetContent side="left" className="w-56 p-0 shadow-none">
+      <SheetContent side="left" className="w-60 p-0 shadow-none">
         <SideBar />
       </SheetContent>
     </Sheet>

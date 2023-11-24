@@ -19,6 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import delay from "delay";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -37,19 +39,26 @@ const CreatePage = () => {
 
   // Initialize the useToast hook
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setIsLoading(true);
       const response = await axios.post("/api/courses", values);
       router.push(`/teacher/courses/${response.data.id}`);
+
+      // Error handling
     } catch {
       toast({
         title: "Something went wrong.",
         description: "There was a problem creating your course.",
         variant: "destructive", // if you want the toast to have a destructive style
       });
+    } finally {
+      await delay(2000);
+      setIsLoading(false);
     }
   };
 
@@ -92,7 +101,10 @@ const CreatePage = () => {
                   Cancel
                 </Button>
               </Link>
-              <Button type="submit" disabled={!isValid || isSubmitting}>
+              <Button
+                type="submit"
+                disabled={!isValid || isSubmitting || isLoading}
+              >
                 Continue
               </Button>
             </div>
