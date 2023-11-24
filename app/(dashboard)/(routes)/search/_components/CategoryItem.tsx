@@ -1,34 +1,39 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
-import React from "react";
 import { IconType } from "react-icons";
+
+import { cn } from "@/lib/utils";
+import urlFriendly from "@/lib/urlFriendly";
 
 interface Props {
   label: string;
-  icon?: IconType;
   value?: string;
+  icon?: IconType;
 }
 
-const CategoryItem = ({ label, icon: Icon, value }: Props) => {
+export const CategoryItem = ({ label, value, icon: Icon }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentCategoryName = searchParams.get("categoryName");
+  const categoryName = searchParams.get("category");
   const currentTitle = searchParams.get("title");
 
-  const isSelected = currentCategoryName === label;
+  // Convert label to a URL-friendly format
+  const urlFriendlyLabel = urlFriendly(label);
+
+  // Find the item that is selected
+  const isSelected = categoryName === urlFriendlyLabel;
 
   const onClick = () => {
-    const url = qs.stringify(
+    const url = qs.stringifyUrl(
       {
         url: pathname,
         query: {
           title: currentTitle,
-          categoryName: isSelected ? null : label,
+          category: isSelected ? null : urlFriendlyLabel,
         },
       },
       { skipNull: true, skipEmptyString: true }
@@ -40,8 +45,8 @@ const CategoryItem = ({ label, icon: Icon, value }: Props) => {
   return (
     <button
       className={cn(
-        "py-2 px-3 text-sm font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 rounded-full flex items-center gap-x-1 bg-muted-foreground/5 dark:hover:bg-card transition hover:shadow-md dark:shadow-muted-foreground/20"
-        // Change style when active
+        "py-2 px-3 text-sm font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 rounded-full flex items-center gap-x-1 bg-accent/30 dark:hover:bg-card transition hover:shadow-md dark:shadow-muted-foreground/20",
+        isSelected && "bg-accent hover:bg-accent dark:hover:bg-accent"
       )}
       type="button"
       onClick={onClick}

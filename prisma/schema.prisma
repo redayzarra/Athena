@@ -37,6 +37,7 @@ model Course {
 model Category {
   id      String   @id @default(uuid())
   name    String   @unique
+  label   String?   @unique
   courses Course[]
 }
 
