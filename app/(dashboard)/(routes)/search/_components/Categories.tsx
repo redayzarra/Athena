@@ -39,9 +39,9 @@ const Categories = ({ items }: { items: Category[] }) => {
         {items.map((item) => (
           <CategoryItem
             key={item.id}
-            label={item.name}
+            name={item.name}
             icon={iconMap[item.name]}
-            value={item.id}
+            label={item.label!}
           />
         ))}
       </div>
