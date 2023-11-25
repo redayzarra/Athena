@@ -37,3 +37,5 @@ const getProgress = async ({ userId, courseId }: Props): Promise<number> => {
     throw error; // or handle it as per your application's error handling strategy
   }
 };
+
+export default getProgress;
