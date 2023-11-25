@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { Category, Course } from "@prisma/client";
 import getProgress from "./getProgress";
 
-type CourseWithCatPro = Course & {
+export type CourseWithCatPro = Course & {
   category: Category | null;
   chapters: { id: string }[];
   progress: number | null;
@@ -22,6 +22,7 @@ const getCourses = async ({
   try {
     const courses = await db.course.findMany({
       where: {
+        userId,
         isPublished: true,
         title: {
           contains: title,

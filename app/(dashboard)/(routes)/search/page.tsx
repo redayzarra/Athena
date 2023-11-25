@@ -5,10 +5,18 @@ import SearchInput from "@/components/SearchInput";
 import getCourses from "@/actions/getCourses";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import CoursesList from "@/components/CoursesList";
 
-const SearchPage = async () => {
-  // User authentication
-  const userId = auth();
+interface Props {
+  searchParams: {
+    title: string;
+    categoryLabel: string;
+  };
+}
+
+const SearchPage = async ({ searchParams }: Props) => {
+  // Protecting with user authentication
+  const { userId } = auth();
   if (!userId) {
     return redirect("/");
   }
@@ -19,7 +27,17 @@ const SearchPage = async () => {
     },
   });
 
-  const courses = await getCourses({});
+  // Find the category ID using the label
+  const category = categories.find(
+    (cat) => cat.label === searchParams.categoryLabel
+  );
+  const categoryId = category ? category.id : undefined;
+
+  const courses = await getCourses({
+    userId,
+    title: searchParams.title,
+    categoryId,
+  });
 
   return (
     <div className="space-y-6">
@@ -29,6 +47,7 @@ const SearchPage = async () => {
           <SearchInput />
         </div>
         <Categories items={categories} />
+        <CoursesList items={courses} />
       </div>
     </div>
   );
