@@ -74,7 +74,7 @@ const ChapterIdPage = async ({
           {/* Group completion text and post badge together */}
           <div className="flex items-center ml-8 mt-2 gap-x-3">
             {/* Completion Text */}
-            <div>
+            <div className="hidden md:block">
               {completedFields === totalFields ? (
                 <div className="font-medium text-base text-primary flex items-center gap-x-2">
                   <FaCircleCheck />
@@ -92,7 +92,7 @@ const ChapterIdPage = async ({
               )}
             </div>
 
-            <Separator orientation="vertical" />
+            <Separator orientation="vertical" className="hidden md:block" />
 
             {/* Post badge */}
             {chapter.isPublished ? (

@@ -51,7 +51,7 @@ const DeleteButton = ({ courseId }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="ml-2">
           Delete
         </Button>
       </AlertDialogTrigger>

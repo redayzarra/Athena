@@ -90,7 +90,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           {/* Group completion text and PostToggle together */}
           <div className="flex items-center ml-8 mt-2 gap-x-3">
             {/* Completion Text */}
-            <div>
+            <div className="hidden md:block">
               {completedFields === totalFields ? (
                 <div className="font-medium text-base text-primary flex items-center gap-x-2">
                   <FaCircleCheck />
@@ -108,7 +108,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               )}
             </div>
 
-            <Separator orientation="vertical" />
+            <Separator className="hidden md:block" orientation="vertical" />
 
             {/* PostToggle component */}
             <PostToggle

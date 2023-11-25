@@ -5,7 +5,7 @@ import Container from "@/components/Container";
 
 const NavBar = () => {
   return (
-    <div className="h-full shadow-md flex items-center">
+    <div className="flex items-center">
       <MobileSideBar />
       <NavBarRoutes />
     </div>

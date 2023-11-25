@@ -194,7 +194,7 @@ export function DataTable<TData extends WithId, TValue>({
           </DropdownMenu>
         </div>
         <Link href={"/teacher/create"}>
-          <Button size="sm" className="font-semibold">
+          <Button size="sm" className="font-semibold ml-2">
             <PlusCircle className="h-4 w-4 mr-2" />
             Create
           </Button>

@@ -18,7 +18,7 @@ const NavBarRoutes = () => {
   return (
     <>
       {isSearchPage && (
-        <div className="max-w-md flex-1 mx-2 md:mx-0">
+        <div className="max-w-md flex-1 mx-2 md:mx-0 hidden md:block">
           <SearchInput />
         </div>
       )}
@@ -27,14 +27,14 @@ const NavBarRoutes = () => {
           <Link href="/">
             <Button size="default" variant="outline">
               <MdLogout className="mr-1" />
-              <p className="hidden md:block font-medium">Exit</p>
+              Exit
             </Button>
           </Link>
         ) : (
           <Link href="/teacher/courses">
             <Button size="default" variant="outline">
-              <MdOutlineCreate className="h-4 w-4 md:mr-1 md:-ml-1" />
-              <p className="hidden md:block font-medium">Create</p>
+              <MdOutlineCreate className="h-4 w-4 mr-1 -ml-1" />
+              Create
             </Button>
           </Link>
         )}
