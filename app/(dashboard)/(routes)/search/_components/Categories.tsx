@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Category } from "@prisma/client";
 import { IconType } from "react-icons";
 import {
@@ -16,7 +17,6 @@ import {
   FcVoicePresentation,
 } from "react-icons/fc";
 import CategoryItem from "./CategoryItem";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const iconMap: Record<Category["name"], IconType> = {
   Music: FcMusic,
