@@ -10,7 +10,7 @@ import CoursesList from "@/components/CoursesList";
 interface Props {
   searchParams: {
     title: string;
-    categoryLabel: string;
+    category: string;
   };
 }
 
@@ -29,7 +29,7 @@ const SearchPage = async ({ searchParams }: Props) => {
 
   // Find the category ID using the label
   const category = categories.find(
-    (cat) => cat.label === searchParams.categoryLabel
+    (cat) => cat.label === searchParams.category
   );
   const categoryId = category ? category.id : undefined;
 
