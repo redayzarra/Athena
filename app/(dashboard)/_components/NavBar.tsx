@@ -1,10 +1,11 @@
 import React from "react";
 import MobileSideBar from "./MobileSideBar";
 import NavBarRoutes from "@/components/NavBarRoutes";
+import Container from "@/components/Container";
 
 const NavBar = () => {
   return (
-    <div className="p-4 h-full border-b shadow-sm flex items-center bg-background">
+    <div className="h-full shadow-md flex items-center">
       <MobileSideBar />
       <NavBarRoutes />
     </div>

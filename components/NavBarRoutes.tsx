@@ -18,23 +18,23 @@ const NavBarRoutes = () => {
   return (
     <>
       {isSearchPage && (
-        <div className="">
+        <div className="max-w-md flex-1 mx-2 md:mx-0">
           <SearchInput />
         </div>
       )}
-      <div className="flex gap-x-2 ml-auto items-center">
+      <div className="flex space-x-2 ml-auto items-center">
         {isTeacherPage || isPlayerPage ? (
           <Link href="/">
-            <Button size="sm" variant="outline">
+            <Button size="default" variant="outline">
               <MdLogout className="mr-1" />
-              Exit
+              <p className="hidden md:block font-medium">Exit</p>
             </Button>
           </Link>
         ) : (
           <Link href="/teacher/courses">
-            <Button size="sm" variant="outline">
-              <MdOutlineCreate className="mr-1" />
-              Create
+            <Button size="default" variant="outline">
+              <MdOutlineCreate className="h-4 w-4 md:mr-1 md:-ml-1" />
+              <p className="hidden md:block font-medium">Create</p>
             </Button>
           </Link>
         )}

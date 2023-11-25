@@ -21,12 +21,9 @@ async function main() {
       "Music",
       "Literature",
       "Mathematics",
-      "Physics",
       "Art & Design",
       "Business & Finance",
       "History",
-      "Philosophy",
-      "Biology",
       "Engineering",
       "Language Learning",
     ];
