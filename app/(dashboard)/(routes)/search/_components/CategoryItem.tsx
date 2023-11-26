@@ -44,7 +44,7 @@ export const CategoryItem = ({
   return (
     <button
       className={cn(
-        "py-2 px-3 text-sm font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 rounded-full flex items-center gap-x-1 bg-accent/30 dark:hover:bg-card transition hover:shadow-md dark:shadow-muted-foreground/20",
+        "py-2 px-3 text-sm font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 rounded-full flex items-center gap-x-1 bg-accent/30 dark:hover:bg-card transition-all hover:shadow-md dark:shadow-muted-foreground/20",
         isSelected &&
           "bg-accent hover:bg-accent dark:hover:bg-accent shadow-md dark:shadow-muted-foreground/20"
       )}
