@@ -41,7 +41,7 @@ const SearchPage = async ({ searchParams }: Props) => {
   return (
     <div className="space-y-6">
       <h1 className="text-5xl font-black">Browse Courses</h1>
-      <div>
+      <div className="space-y-4">
         <div className="md:hidden md:mb-0 block">
           <SearchInput />
         </div>

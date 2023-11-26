@@ -2,6 +2,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LiaGripLinesVerticalSolid } from "react-icons/lia";
 
 interface Props {
   id: string;
@@ -27,29 +28,42 @@ const CourseCard = ({
   return (
     <Link href={`/courses/${id}`}>
       <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg h-full">
+        {/* Image */}
         <div className="relative w-full aspect-video rounded-t-md overflow-hidden">
           <Image fill className="object-cover" alt={title} src={imageUrl} />
         </div>
+
+        {/* Info */}
         <div className="flex flex-col p-2">
           <div className="text-xl font-bold transition line-clamp-2">
             {title}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">{category}</p>
+          <p className="text-[14px] text-muted-foreground mt-1">{category}</p>
+
+          {/* Chapters and Progress Bar */}
           <div className="my-3 flex items-center gap-x-2 text-sm">
-            <div className="flex items-center gap-x-1 text-muted-foreground">
+            <div className="flex items-center gap-x-1">
               <BookOpen />
               <span>
                 {chaptersLength} {chaptersLength === 1 ? "chapter" : "chapters"}
               </span>
             </div>
+            <LiaGripLinesVerticalSolid
+              size={20}
+              className="text-muted-foreground"
+            />
+            {progress !== null ? (
+              <div>TODO: Progress component</div>
+            ) : (
+              <p
+                className={`font-semibold text-base inline-block ${
+                  price === 0 && "italic"
+                }`}
+              >
+                {price === 0 ? "Free" : formatPrice(price)}
+              </p>
+            )}
           </div>
-          {progress !== null ? (
-            <div>Todo: Progress bar</div>
-          ) : (
-            <p className="font-semibold text-md md:text-sm inline-block">
-              {formatPrice(price)}
-            </p>
-          )}
         </div>
       </div>
     </Link>
