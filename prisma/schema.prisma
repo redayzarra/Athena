@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
@@ -39,7 +39,7 @@ model Course {
 model Category {
   id      String   @id @default(uuid())
   name    String   @unique
-  label   String?   @unique
+  label   String?  @unique
   courses Course[]
 }
 
@@ -114,6 +114,7 @@ model Purchase {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId, courseId])
   @@index([courseId])
 }
 
