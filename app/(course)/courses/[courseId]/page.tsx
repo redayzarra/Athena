@@ -2,7 +2,7 @@ import React from 'react'
 
 const CourseIdPage = () => {
   return (
-    <div>CourseIdPage</div>
+    <div></div>
   )
 }
 
