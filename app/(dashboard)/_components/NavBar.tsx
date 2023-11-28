@@ -1,12 +1,13 @@
-import React from "react";
-import MobileSideBar from "./MobileSideBar";
 import NavBarRoutes from "@/components/NavBarRoutes";
-import Container from "@/components/Container";
+import MobileSideBar from "../../../components/MobileSideBar";
+import SideBar from "./SideBar";
 
 const NavBar = () => {
   return (
     <div className="flex items-center">
-      <MobileSideBar />
+      <MobileSideBar>
+        <SideBar />
+      </MobileSideBar>
       <NavBarRoutes />
     </div>
   );

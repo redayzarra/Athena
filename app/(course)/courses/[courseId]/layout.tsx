@@ -4,6 +4,8 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 import CourseSideBar from "./_components/CourseSideBar";
+import CourseNavBar from "./_components/CourseNavBar";
+import Container from "@/components/Container";
 
 const CourseLayout = async ({
   children,
@@ -53,10 +55,15 @@ const CourseLayout = async ({
 
   return (
     <div className="h-full">
-      <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-60">
+      <div className="hidden md:flex h-full w-80 flex-col fixed z-50">
         <CourseSideBar course={course} progressCount={progressCount} />
       </div>
-      <main>{children}</main>
+      <Container>
+        <main className="md:ml-80 h-full space-y-8">
+          <CourseNavBar course={course} progressCount={progressCount} />
+          {children}
+        </main>
+      </Container>
     </div>
   );
 };
