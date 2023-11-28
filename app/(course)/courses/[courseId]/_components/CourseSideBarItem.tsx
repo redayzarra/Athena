@@ -35,8 +35,9 @@ const CourseSideBarItem = ({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex items-center gap-x-2 pl-6 text-sm font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 bg-accent/30 dark:hover:bg-card transition-all",
-        isActive && "bg-accent hover:bg-accent dark:hover:bg-accent",
+        "flex items-center gap-x-2 pl-6 text-sm text-muted-foreground font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 bg-accent/30 dark:hover:bg-card transition-all",
+        isActive &&
+          "bg-accent text-foreground hover:bg-accent dark:hover:bg-accent",
         isCompleted && "text-primary hover:text-primary",
         isCompleted && isActive && "bg-primary"
       )}
