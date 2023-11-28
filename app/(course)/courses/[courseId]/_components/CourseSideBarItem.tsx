@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { CheckCircle, Lock, PlayCircle } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import { FaLock } from "react-icons/fa";
 
 interface Props {
   id: string;
@@ -38,6 +39,8 @@ const CourseSideBarItem = ({
         "flex items-center gap-x-2 pl-6 text-sm text-muted-foreground font-medium border border-muted-foreground/20 dark:border-muted-foreground/15 bg-accent/30 dark:hover:bg-card transition-all",
         isActive &&
           "bg-accent text-foreground hover:bg-accent dark:hover:bg-accent",
+        isLocked &&
+          "bg-background hover:bg-background dark:hover:bg-background cursor-auto text-muted-foreground/50",
         isCompleted && "text-primary hover:text-primary",
         isCompleted && isActive && "bg-primary"
       )}
@@ -48,6 +51,7 @@ const CourseSideBarItem = ({
           className={cn(
             "text-muted-foreground",
             isActive && "text-foreground",
+            isLocked && "text-muted-foreground/50 ml-[2px]",
             isCompleted && "text-primary"
           )}
         />
