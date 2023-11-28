@@ -42,7 +42,20 @@ const ChapterIdPage = async ({
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="flex flex-col mx-auto mb-4">
+        <div className="">
+          <VideoPlayer
+            chapterId={chapterId}
+            title={chapter.title}
+            courseId={courseId}
+            nextChapterId={nextChapter?.id}
+            playbackId={muxData?.playbackId!}
+            isLocked={isLocked}
+            completeOnEnd={completeOnEnd}
+          />
+        </div>
+      </div>
+      <div className="mb-10">
         {userProgress?.isCompleted && (
           <CourseAlert
             title="Heads up!"
@@ -56,19 +69,6 @@ const ChapterIdPage = async ({
             description="You need to purchase this course to watch this chapter."
           />
         )}
-      </div>
-      <div className="flex flex-col mx-auto pb-20">
-        <div className="">
-          <VideoPlayer
-            chapterId={chapterId}
-            title={chapter.title}
-            courseId={courseId}
-            nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
-            isLocked={isLocked}
-            completeOnEnd={completeOnEnd}
-          />
-        </div>
       </div>
     </div>
   );
