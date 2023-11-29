@@ -42,17 +42,18 @@ const ChapterIdPage = async ({
 
   return (
     <div>
-      <div className="flex flex-col mx-auto mb-4">
-        <div className="">
-          <VideoPlayer
-            chapterId={chapterId}
-            title={chapter.title}
-            courseId={courseId}
-            nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
-            isLocked={isLocked}
-            completeOnEnd={completeOnEnd}
-          />
+      <div className="flex flex-col mx-auto space-y-4">
+        <VideoPlayer
+          chapterId={chapterId}
+          title={chapter.title}
+          courseId={courseId}
+          nextChapterId={nextChapter?.id}
+          playbackId={muxData?.playbackId!}
+          isLocked={isLocked}
+          completeOnEnd={completeOnEnd}
+        />
+        <div className="flex flex-row items-center justify-between">
+          <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
         </div>
       </div>
       <div className="mb-10">

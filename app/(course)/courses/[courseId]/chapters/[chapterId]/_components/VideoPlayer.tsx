@@ -1,6 +1,8 @@
 "use client";
 
-import { Loader2, Lock } from "lucide-react";
+import { cn } from "@/lib/utils";
+import MuxPlayer from "@mux/mux-player-react";
+import { Divide, Loader2, Lock } from "lucide-react";
 import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 
@@ -27,14 +29,25 @@ const VideoPlayer = ({
 
   return (
     <div className="relative aspect-video">
-      {isLocked ? (
-        <div className="absolute inset-0 rounded-sm flex items-center justify-center bg-card flex-col gap-y-2 text-muted-foreground/50">
-          <Lock className="h-8 w-8" />
+      {!isReady && !isLocked && (
+        <div className="absolute inset-0 flex items-center justify-center bg-card">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground/50" />
         </div>
-      ) : (
-        <div className="absolute inset-0 text-muted-foreground/50 rounded-sm flex items-center justify-center bg-card">
-          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      )}
+      {isLocked && (
+        <div className="absolute inset-0 flex items-center justify-center bg-card flex-col gap-y-2 text-secondary">
+          <Lock className="h-8 w-8 text-muted-foreground/50" />
         </div>
+      )}
+      {!isLocked && (
+        <MuxPlayer
+          title={title}
+          className={cn(!isReady && "hidden")}
+          onCanPlay={() => setIsReady(true)}
+          onEnded={() => {}}
+          autoPlay
+          playbackId={playbackId}
+        />
       )}
     </div>
   );
