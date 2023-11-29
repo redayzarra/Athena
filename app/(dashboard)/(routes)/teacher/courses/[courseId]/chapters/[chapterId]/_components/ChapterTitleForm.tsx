@@ -30,7 +30,10 @@ interface Props {
 
 // Zod schema
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required." }),
+  title: z
+    .string()
+    .min(1, { message: "Title is required." })
+    .max(50, { message: "Title must be at most 100 characters long." }),
 });
 
 const ChapterTitleForm = ({ initialData, courseId, chapterId }: Props) => {

@@ -55,8 +55,9 @@ const CourseSideBarItem = ({
             isCompleted && "text-primary"
           )}
         />
-        {label}
+        <div className="w-full text-left line-clamp-1">{label}</div>
       </div>
+      {/* Border */}
       <div
         className={cn(
           "ml-auto opacity-0 border-2 border-foreground h-full transition-all",
