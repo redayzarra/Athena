@@ -1,8 +1,8 @@
-import getChapter from "@/actions/getChapter";
+import { getChapter } from "@/actions/getChapter";
 import CourseAlert from "@/components/CourseAlert";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import React from "react";
+import CourseEnrollButton from "./_components/CourseEnrollButton";
 import VideoPlayer from "./_components/VideoPlayer";
 
 const ChapterIdPage = async ({
@@ -16,7 +16,6 @@ const ChapterIdPage = async ({
     return redirect("/");
   }
 
-  // Extracting values
   const { courseId, chapterId } = params;
 
   const {
@@ -53,10 +52,17 @@ const ChapterIdPage = async ({
           completeOnEnd={completeOnEnd}
         />
         <div className="flex flex-row items-center justify-between">
-          <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
+          <h2 className="text-2xl font-semibold line-clamp-1">
+            {chapter.title}
+          </h2>
+          {purchase ? (
+            <div className=""></div>
+          ) : (
+            <CourseEnrollButton courseId={courseId} price={course.price!} />
+          )}
         </div>
       </div>
-      <div className="mb-10">
+      <div className="mt-4">
         {userProgress?.isCompleted && (
           <CourseAlert
             title="Heads up!"
