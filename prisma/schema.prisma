@@ -120,7 +120,7 @@ model Purchase {
 
 model StripeCustomer {
   id               String @id @default(uuid())
-  userId           String
+  userId           String @unique
   stripeCustomerId String @unique
 
   createdAt DateTime @default(now())
