@@ -1,9 +1,12 @@
 import { getChapter } from "@/actions/getChapter";
 import CourseAlert from "@/components/CourseAlert";
+import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import CourseEnrollButton from "./_components/CourseEnrollButton";
 import VideoPlayer from "./_components/VideoPlayer";
+import Preview from "@/components/Preview";
+import { File } from "lucide-react";
 
 const ChapterIdPage = async ({
   params,
@@ -58,9 +61,31 @@ const ChapterIdPage = async ({
           {purchase ? (
             <div className=""></div>
           ) : (
-            <CourseEnrollButton price={course.price!} />
+            <CourseEnrollButton courseId={courseId} price={course.price!} />
           )}
         </div>
+        <Separator />
+        <div>
+          <Preview value={chapter.description!} />
+        </div>
+        {!!attachments.length && (
+          <>
+            <Separator />
+            <div className="p-4">
+              {attachments.map((attachment) => (
+                <a
+                  href={attachment.url}
+                  target="_blank"
+                  key={attachment.id}
+                  className="flex items-center p-3 w-full border rounded-md hover:underline"
+                >
+                  <File />
+                  <p className="line-clamp-1">{attachment.name}</p>
+                </a>
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <div className="mt-4">
         {userProgress?.isCompleted && (
