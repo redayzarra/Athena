@@ -1,8 +1,8 @@
-import { db } from "@/lib/db";
-import stripe from "@/lib/stripe";
+import Stripe from "stripe";
 import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import Stripe from "stripe";
+import { db } from "@/lib/db";
+import stripe from "@/lib/stripe";
 
 export async function POST(
   request: NextRequest,
@@ -31,10 +31,10 @@ export async function POST(
       },
     });
 
-    // Redirect if already purchased or not found
     if (purchase) {
       return new NextResponse("Already purchased", { status: 400 });
     }
+
     if (!course) {
       return new NextResponse("Not found", { status: 404 });
     }
@@ -80,18 +80,18 @@ export async function POST(
       line_items,
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?cancelled=1`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,
       metadata: {
         courseId: course.id,
         userId: user.id,
       },
     });
 
-    return NextResponse.json({url: session.url})
+    return NextResponse.json({ url: session.url });
 
     // Error handling
   } catch (error) {
-    console.log("COURSE_ID_CHECKOUT", error);
-    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+    console.log("[COURSE_ID_CHECKOUT]", error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

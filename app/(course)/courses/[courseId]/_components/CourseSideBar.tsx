@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 import CourseSideBarItem from "./CourseSideBarItem";
+import CourseProgress from "@/components/CourseProgress";
 
 interface Props {
   course: Course & {
@@ -34,7 +35,11 @@ export const CourseSideBar = async ({ course, progressCount }: Props) => {
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
       <div className="p-8 flex flex-col border-b items-center justify-center">
         <h1 className="font-semibold">{course.title}</h1>
-        {/* Check user's purchase and progress */}
+        {purchase && (
+          <div className="mt-10">
+            <CourseProgress variant="success" value={progressCount} />
+          </div>
+        )}
       </div>
       <div className="flex flex-col w-full">
         {course.chapters.map((chapter) => (
