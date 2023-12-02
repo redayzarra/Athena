@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
 import Stripe from "stripe";
+import { headers } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 import stripe from "@/lib/stripe";
 import { db } from "@/lib/db";
 
@@ -16,6 +16,8 @@ export async function POST(request: NextRequest) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
+
+    // Error handling
   } catch (error: any) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
@@ -26,17 +28,19 @@ export async function POST(request: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     if (!userId || !courseId) {
-      return new NextResponse(`Webhook Error: Missing Metadata`, {
+      return new NextResponse(`Webhook Error: Missing metadata`, {
         status: 400,
       });
     }
 
     await db.purchase.create({
       data: {
-        courseId,
-        userId,
+        courseId: courseId,
+        userId: userId,
       },
     });
+
+    // Error handling for unknown event type - not fatal
   } else {
     return new NextResponse(
       `Webhook Error: Unhandled event type ${event.type}`,

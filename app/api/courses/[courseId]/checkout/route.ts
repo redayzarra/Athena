@@ -1,8 +1,7 @@
 import { db } from "@/lib/db";
 import stripe from "@/lib/stripe";
-import { auth, currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import { FaTruckMedical } from "react-icons/fa6";
 import Stripe from "stripe";
 
 export async function POST(
@@ -47,7 +46,7 @@ export async function POST(
           currency: "USD",
           product_data: {
             name: course.title,
-            description: course.description!,
+            // description: course.description!,
           },
           unit_amount: Math.round(course.price! * 100),
         },
