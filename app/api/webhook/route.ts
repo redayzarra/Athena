@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
   let event: Stripe.Event;
 
   try {
+    // Protecting route with stripe signature
     event = stripe.webhooks.constructEvent(
       body,
       signature,
@@ -22,6 +23,7 @@ export async function POST(request: NextRequest) {
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
+  // Extracting variables from stripe metadata
   const session = event.data.object as Stripe.Checkout.Session;
   const userId = session?.metadata?.userId;
   const courseId = session?.metadata?.courseId;
