@@ -1,20 +1,35 @@
-import { Progress } from "./ui/progress";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
-interface Props {
+interface CourseProgressProps {
   value: number;
   variant?: "default" | "success";
   size?: "default" | "sm";
 }
 
-const sizeVariant = {
+const colorByVariant = {
+  default: "text-muted-foreground",
+  success: "text-muted-foreground",
+};
+
+const sizeByVariant = {
   default: "text-sm",
   sm: "text-xs",
 };
 
-const CourseProgress = ({ value, variant, size }: Props) => {
+const CourseProgress = ({ value, variant, size }: CourseProgressProps) => {
   return (
     <div>
-      <Progress value={value} className="h-2" variant={variant} />
+      <Progress className="h-2" value={value} variant={variant} />
+      <p
+        className={cn(
+          "font-medium mt-2 text-sm text-muted-foreground px-20",
+          colorByVariant[variant || "default"],
+          sizeByVariant[size || "default"]
+        )}
+      >
+        {Math.round(value)}% Complete
+      </p>
     </div>
   );
 };
