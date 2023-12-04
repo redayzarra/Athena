@@ -37,7 +37,10 @@ export const CourseSideBar = async ({ course, progressCount }: Props) => {
         <h1 className="font-semibold line-clamp-2">{course.title}</h1>
         {purchase && (
           <div className="mt-6">
-            <CourseProgress variant="success" value={progressCount} />
+            <CourseProgress
+              variant={progressCount == 100 ? "success" : "default"}
+              value={progressCount}
+            />
           </div>
         )}
       </div>
