@@ -3,6 +3,7 @@ import { BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { LiaGripLinesVerticalSolid } from "react-icons/lia";
+import CourseProgress from "./CourseProgress";
 
 interface Props {
   id: string;
@@ -41,28 +42,34 @@ const CourseCard = ({
           <p className="text-[14px] text-muted-foreground mt-1">{category}</p>
 
           {/* Chapters and Progress Bar */}
-          <div className="my-3 flex items-center gap-x-2 text-sm">
-            <div className="flex items-center gap-x-1">
+          <div className="my-3 gap-x-2 text-sm flex">
+            <div className="flex items-center gap-x-1 max-w-[200px]">
               <BookOpen />
               <span>
                 {chaptersLength} {chaptersLength === 1 ? "chapter" : "chapters"}
               </span>
+              <LiaGripLinesVerticalSolid
+                size={20}
+                className="text-muted-foreground"
+              />
             </div>
-            <LiaGripLinesVerticalSolid
-              size={20}
-              className="text-muted-foreground"
-            />
-            {progress !== null ? (
-              <div>TODO: Progress component</div>
-            ) : (
-              <p
-                className={`font-semibold text-base inline-block ${
-                  price === 0 && "italic"
-                }`}
-              >
-                {price === 0 ? "Free" : formatPrice(price)}
-              </p>
-            )}
+            <div className="mt-2">
+              {progress !== null ? (
+                <CourseProgress
+                  size="sm"
+                  value={progress}
+                  variant={progress === 100 ? "success" : "default"}
+                />
+              ) : (
+                <p
+                  className={`font-semibold text-base inline-block ${
+                    price === 0 && "italic"
+                  }`}
+                >
+                  {price === 0 ? "Free" : formatPrice(price)}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

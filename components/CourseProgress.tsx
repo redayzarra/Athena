@@ -22,7 +22,11 @@ const CourseProgress = ({ value, variant, size }: Props) => {
           sizeByVariant[size || "default"]
         )}
       >
-        {Math.round(value)}% Complete{value === 100 && "!"}
+        {size !== "sm" && (
+          <>
+            {Math.round(value)}% Complete{value === 100 && "!"}
+          </>
+        )}
       </p>
     </div>
   );
