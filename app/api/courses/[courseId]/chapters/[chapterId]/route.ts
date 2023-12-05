@@ -219,3 +219,15 @@ export async function DELETE(
     return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { courseId: string; chapterId: string } }
+) {
+  try {
+    // Error handling
+  } catch (error) {
+    console.log("[COURSE_ID: PUT]", error);
+    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
+  }
+}

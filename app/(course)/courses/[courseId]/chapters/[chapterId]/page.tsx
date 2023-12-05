@@ -1,12 +1,13 @@
 import { getChapter } from "@/actions/getChapter";
 import CourseAlert from "@/components/CourseAlert";
+import Preview from "@/components/Preview";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
+import { File } from "lucide-react";
 import { redirect } from "next/navigation";
 import CourseEnrollButton from "./_components/CourseEnrollButton";
 import VideoPlayer from "./_components/VideoPlayer";
-import Preview from "@/components/Preview";
-import { File } from "lucide-react";
+import CourseProgressButton from "./_components/CourseProgressButton";
 
 const ChapterIdPage = async ({
   params,
@@ -19,6 +20,7 @@ const ChapterIdPage = async ({
     return redirect("/");
   }
 
+  // Extracting values from params
   const { courseId, chapterId } = params;
 
   const {
@@ -59,7 +61,14 @@ const ChapterIdPage = async ({
             {chapter.title}
           </h2>
           {purchase ? (
-            <div className=""></div>
+            <div className="">
+              <CourseProgressButton
+                chapterId={chapterId}
+                courseId={courseId}
+                nextChapterId={nextChapter?.id}
+                isCompleted={!!userProgress?.isCompleted}
+              />
+            </div>
           ) : (
             <CourseEnrollButton courseId={courseId} price={course.price!} />
           )}
