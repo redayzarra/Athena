@@ -61,7 +61,7 @@ const CourseProgressButton = ({
       onClick={onClick}
       variant={isCompleted ? "secondary" : "default"}
     >
-      {isCompleted ? "Incomplete" : "Completed"}
+      {isCompleted ? "Incomplete" : "Complete"}
       <Icon className="h-4 w-4 ml-2" />
     </Button>
   );

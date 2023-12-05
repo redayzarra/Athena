@@ -42,19 +42,20 @@ const CourseSideBarItem = ({
         isLocked &&
           "bg-background hover:bg-background dark:hover:bg-background cursor-auto text-muted-foreground/50",
         isCompleted && "text-primary hover:text-primary",
-        isCompleted && isActive && "bg-primary"
+        isCompleted && isActive && "bg-accent"
       )}
     >
       <div className="flex items-center gap-x-2 py-4">
-        <Icon
-          size={22}
-          className={cn(
-            "text-muted-foreground",
-            isActive && "text-foreground",
-            isLocked && "text-muted-foreground/50 ml-[2px]",
-            isCompleted && "text-primary"
-          )}
-        />
+        <div className="inline-block">
+          <Icon
+            className={cn(
+              "text-muted-foreground h-6 w-6",
+              isActive && "text-foreground",
+              isLocked && "text-muted-foreground/50",
+              isCompleted && "text-primary"
+            )}
+          />
+        </div>
         <div className="w-full text-left line-clamp-1">{label}</div>
       </div>
       {/* Border */}
