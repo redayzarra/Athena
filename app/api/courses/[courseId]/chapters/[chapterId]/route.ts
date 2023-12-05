@@ -225,6 +225,35 @@ export async function PUT(
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
+    // Protecting api route with user authentication
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({}, { status: 401 });
+    }
+
+    // Extracting values
+    const { courseId, chapterId } = params;
+    const { isCompleted } = await request.json();
+
+    const userProgress = await db.userProgress.upsert({
+      where: {
+        userId_chapterId: {
+          userId,
+          chapterId,
+        },
+      },
+      update: {
+        isCompleted,
+      },
+      create: {
+        userId,
+        chapterId,
+        isCompleted,
+      },
+    });
+
+    return NextResponse.json(userProgress);
+
     // Error handling
   } catch (error) {
     console.log("[COURSE_ID: PUT]", error);

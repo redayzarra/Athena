@@ -33,6 +33,14 @@ const CourseProgressButton = ({
       await axios.put(`/api/courses/${courseId}/chapters/${chapterId}`, {
         isCompleted: !isCompleted,
       });
+
+      if (!isCompleted && nextChapterId) {
+        router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+      }
+
+      router.refresh();
+
+      // Error handling
     } catch (error) {
       toast({
         title: "Something went wrong.",
@@ -49,6 +57,8 @@ const CourseProgressButton = ({
     <Button
       type="button"
       size="sm"
+      disabled={isLoading}
+      onClick={onClick}
       variant={isCompleted ? "secondary" : "default"}
     >
       {isCompleted ? "Incomplete" : "Completed"}
