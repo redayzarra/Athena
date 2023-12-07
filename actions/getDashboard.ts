@@ -20,7 +20,14 @@ export const getDashboard = async (
   try {
     const purchasedCourses = await db.purchase.findMany({
       where: {
-        userId,
+        userId: userId,
+        course: {
+          is: {
+            id: {
+              not: undefined,
+            },
+          },
+        },
       },
       select: {
         course: {
@@ -36,9 +43,9 @@ export const getDashboard = async (
       },
     });
 
-    const courses = purchasedCourses.map(
-      (purchase) => purchase.course
-    ) as CourseWithProgressWithCategory[];
+    const courses = purchasedCourses
+      .map((purchase) => purchase.course)
+      .filter((course) => course !== null) as CourseWithProgressWithCategory[];
 
     for (let course of courses) {
       const progress = await getProgress({ userId, courseId: course.id });
