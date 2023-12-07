@@ -43,19 +43,19 @@ const CourseCard = ({
 
           {/* Align Chapters and Progress Bar at Bottom */}
           <div className="mt-auto">
-            <div className="my-3 gap-x-2 text-sm flex justify-between items-center">
-              <div className="flex items-center gap-x-2 max-w-[200px]">
+            <div className="my-3 gap-x-2 text-sm flex items-center">
+              <div className="flex items-center gap-x-2">
                 <BookOpen />
-                <span>
+                <span className="inline-block">
                   {chaptersLength}{" "}
                   {chaptersLength === 1 ? "chapter" : "chapters"}
                 </span>
                 <LiaGripLinesVerticalSolid
-                  size={20}
+                  size={25}
                   className="text-muted-foreground"
                 />
               </div>
-              <div className="mr-12 mt-1.5">
+              <div className="">
                 {progress !== null ? (
                   <CourseProgress
                     size="sm"
@@ -64,7 +64,7 @@ const CourseCard = ({
                   />
                 ) : (
                   <p
-                    className={`font-semibold text-base inline-block ${
+                    className={`font-semibold text-base ${
                       price === 0 && "italic"
                     }`}
                   >

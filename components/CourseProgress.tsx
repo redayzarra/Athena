@@ -14,11 +14,15 @@ const sizeByVariant = {
 
 const CourseProgress = ({ value, variant, size }: Props) => {
   return (
-    <div>
-      <Progress className="h-2" value={value} variant={variant} />
+    <div className="flex flex-col items-center justify-center">
+      <Progress
+        className={cn("h-2 w-56", size === "sm" && "h-2 w-32 mt-1")}
+        value={value}
+        variant={variant}
+      />
       <p
         className={cn(
-          "font-medium mt-2 text-sm text-muted-foreground px-16",
+          "font-medium text-sm text-muted-foreground mt-1",
           sizeByVariant[size || "default"]
         )}
       >
