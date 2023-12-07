@@ -14,7 +14,7 @@ type DashboardCourses = {
   inProgressCourses: CourseWithProgressWithCategory[];
 };
 
-export const getDashboardCourses = async (
+const getDashboard = async (
   userId: string
 ): Promise<DashboardCourses> => {
   try {
@@ -69,3 +69,5 @@ export const getDashboardCourses = async (
     };
   }
 };
+
+export default getDashboard;
