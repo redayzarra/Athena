@@ -5,11 +5,18 @@ type PurchaseWithCourse = Purchase & {
   course: Course;
 };
 
+const truncateString = (str: string, num: number) => {
+  if (str.length > num) {
+    return str.slice(0, num) + "..";
+  }
+  return str;
+};
+
 const groupByCourse = (purchases: PurchaseWithCourse[]) => {
   const grouped: { [courseTitle: string]: number } = {};
 
   purchases.forEach((purchase) => {
-    const courseTitle = purchase.course.title;
+    const courseTitle = truncateString(purchase.course.title, 5);
     if (!grouped[courseTitle]) {
       grouped[courseTitle] = 0;
     }

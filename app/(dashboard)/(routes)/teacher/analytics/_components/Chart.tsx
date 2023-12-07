@@ -12,7 +12,7 @@ interface Props {
 
 const Chart = ({ data }: Props) => {
   return (
-    <Card>
+    <Card className="pt-2 pr-4">
       <ResponsiveContainer width="100%" height={350}>
         <BarChart data={data}>
           <XAxis
@@ -20,13 +20,13 @@ const Chart = ({ data }: Props) => {
             stroke="#888888"
             fontSize={12}
             tickLine={false}
-            axisLine={false}
+            axisLine={true}
           />
           <YAxis
             stroke="#888888"
             fontSize={12}
-            tickLine={false}
-            axisLine={false}
+            tickLine={true}
+            axisLine={true}
             tickFormatter={(value) => `$${value}`}
           />
           <Bar dataKey="total" fill="#0369a1" radius={[4, 4, 0, 0]} />
