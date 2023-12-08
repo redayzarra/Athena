@@ -22,12 +22,18 @@ export async function PATCH(
     // Extracting values
     const { courseId } = params;
     const values = await request.json();
-    let { price } = values;
+    
+    // Prepare the data for updating
+    const dataToUpdate = { ...values };
 
-    // Parse the price string to a float and round it
-    price = isNaN(parseFloat(price))
-      ? 0
-      : Math.round((parseFloat(price) + Number.EPSILON) * 100) / 100;
+    // Update price only if it's included in the request
+    if ("price" in values) {
+      let { price } = values;
+      price = isNaN(parseFloat(price))
+        ? 0
+        : Math.round((parseFloat(price) + Number.EPSILON) * 100) / 100;
+      dataToUpdate.price = price;
+    }
 
     // Update the course details
     const updatedCourse = await db.course.update({
@@ -35,10 +41,7 @@ export async function PATCH(
         id: courseId,
         userId,
       },
-      data: {
-        ...values,
-        price,
-      },
+      data: dataToUpdate,
     });
 
     return NextResponse.json(updatedCourse);
