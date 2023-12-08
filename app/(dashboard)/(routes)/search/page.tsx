@@ -6,6 +6,8 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Categories from "./_components/Categories";
 import { Metadata } from "next";
+import CategoriesLoading from "./_components/CategoriesLoading";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   searchParams: {
@@ -57,5 +59,6 @@ export default SearchPage;
 
 export const metadata: Metadata = {
   title: "Explore Courses - Brainery Search",
-  description: "Discover and explore a diverse range of courses on Brainery. Whether you're deepening professional skills or pursuing personal interests, our search feature helps you find the perfect course tailored to your needs.",
+  description:
+    "Discover and explore a diverse range of courses on Brainery. Whether you're deepening professional skills or pursuing personal interests, our search feature helps you find the perfect course tailored to your needs.",
 };
