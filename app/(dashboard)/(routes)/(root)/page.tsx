@@ -1,10 +1,10 @@
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import { CheckCircle, Clock } from "lucide-react";
 import getDashboard from "@/actions/getDashboard";
-import { InfoCard } from "./_components/InfoCard";
 import CoursesList from "@/components/CoursesList";
+import { auth } from "@clerk/nextjs";
+import { CheckCircle, Clock } from "lucide-react";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { InfoCard } from "./_components/InfoCard";
 
 export default async function Dashboard() {
   // Protecting with user authentication
@@ -36,5 +36,6 @@ export default async function Dashboard() {
 
 export const metadata: Metadata = {
   title: "Brainery Dashboard",
-  description: "Brainery, a portfolio project, showcases an online learning platform concept where users can explore and share educational courses. Designed to demonstrate web development skills, it features a range of subjects for both professional and personal learning interests.",
+  description:
+    "Brainery, a portfolio project, showcases an online learning platform concept where users can explore and share educational courses. Designed to demonstrate web development skills, it features a range of subjects for both professional and personal learning interests.",
 };
