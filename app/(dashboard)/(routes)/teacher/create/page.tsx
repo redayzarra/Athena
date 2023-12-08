@@ -116,9 +116,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
-
-export const metadata: Metadata = {
-  title: "Create New Course",
-  description: "Craft your own course on Brainery with ease. Start by naming your course and setting the foundation for an engaging and informative learning experience. Ideal for educators seeking to share their expertise and passion.",
-};
+export default CreatePage
