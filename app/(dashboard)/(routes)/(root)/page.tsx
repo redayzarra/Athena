@@ -5,6 +5,8 @@ import { CheckCircle, Clock } from "lucide-react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { InfoCard } from "./_components/InfoCard";
+import CourseListLoading from "@/components/loading/CoursesListLoading";
+import { InfoCardLoading } from "./_components/InfoCardLoading";
 
 export default async function Dashboard() {
   // Protecting with user authentication
