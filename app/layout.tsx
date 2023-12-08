@@ -3,7 +3,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
-import QueryClientProvider from "./QueryClientProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
