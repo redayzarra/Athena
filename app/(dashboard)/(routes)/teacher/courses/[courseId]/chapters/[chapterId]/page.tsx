@@ -16,6 +16,7 @@ import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterVideoForm from "./_components/ChapterVideoForm";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Metadata } from "next";
 
 const ChapterIdPage = async ({
   params,
@@ -151,3 +152,8 @@ const ChapterIdPage = async ({
 };
 
 export default ChapterIdPage;
+
+export const metadata: Metadata = {
+  title: "Chapter Management",
+  description: "Edit and manage your course chapters with ease on Brainery. Customize chapter content, settings, and access options, ensuring each chapter is tailored to your teaching style and student needs.",
+};

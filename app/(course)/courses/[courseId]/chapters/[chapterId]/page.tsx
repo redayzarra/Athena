@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import CourseEnrollButton from "./_components/CourseEnrollButton";
 import VideoPlayer from "./_components/VideoPlayer";
 import CourseProgressButton from "./_components/CourseProgressButton";
+import { Metadata } from "next";
 
 const ChapterIdPage = async ({
   params,
@@ -115,3 +116,9 @@ const ChapterIdPage = async ({
 };
 
 export default ChapterIdPage;
+
+export const metadata: Metadata = {
+  title: "Chapter Details",
+  description:
+    "Dive into detailed chapter content on Brainery. Access video lessons, downloadable resources, and chapter summaries. Track your progress and move seamlessly to the next chapter for a continuous learning experience.",
+};

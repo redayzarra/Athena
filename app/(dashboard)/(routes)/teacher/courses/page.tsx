@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/Columns";
+import { Metadata } from "next";
 
 const CoursesPage = async () => {
   // Protecting the page with user authentication
@@ -33,3 +34,8 @@ const CoursesPage = async () => {
 };
 
 export default CoursesPage;
+
+export const metadata: Metadata = {
+  title: "My Courses",
+  description: "Manage and view your courses on Brainery. The dashboard provides a comprehensive view of your courses, organized in a user-friendly format for easy access and management.",
+};

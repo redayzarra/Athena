@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Categories from "./_components/Categories";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: {
@@ -53,3 +54,8 @@ const SearchPage = async ({ searchParams }: Props) => {
 };
 
 export default SearchPage;
+
+export const metadata: Metadata = {
+  title: "Explore Courses - Brainery Search",
+  description: "Discover and explore a diverse range of courses on Brainery. Whether you're deepening professional skills or pursuing personal interests, our search feature helps you find the perfect course tailored to your needs.",
+};

@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import DataCard from "./_components/DataCard";
 import Chart from "./_components/Chart";
+import { Metadata } from "next";
 
 const AnalyticsPage = async () => {
   // Protecting page with user authentication
@@ -29,3 +30,8 @@ const AnalyticsPage = async () => {
 };
 
 export default AnalyticsPage;
+
+export const metadata: Metadata = {
+  title: "User Analytics - Brainery Insights",
+  description: "Access detailed analytics on Brainery with insights into your total revenue and sales. Track course performance and user engagement through our intuitive charts and data visualizations.",
+};

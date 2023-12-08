@@ -20,6 +20,7 @@ import PostToggle from "./_components/PostToggle";
 import PriceForm from "./_components/PriceForm";
 import TitleForm from "./_components/TitleForm";
 import DeleteButton from "./_components/DeleteButton";
+import { Metadata } from "next";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = params.courseId;
@@ -170,3 +171,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 };
 
 export default CourseIdPage;
+
+export const metadata: Metadata = {
+  title: "Edit Course",
+  description: "Manage and customize your course details on Brainery. Edit course content, set pricing, update categories, and manage resources, all from a user-friendly teacher dashboard.",
+};
