@@ -12,7 +12,7 @@ interface Props {
 
 const Chart = ({ data }: Props) => {
   return (
-    <Card className="pt-2 pr-4">
+    <Card className="pt-4 pr-4">
       <ResponsiveContainer width="100%" height={350}>
         <BarChart data={data}>
           <XAxis

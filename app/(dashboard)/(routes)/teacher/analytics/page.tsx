@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import DataCard from "./_components/DataCard";
 import Chart from "./_components/Chart";
 import { Metadata } from "next";
+import DataCardLoading from "./_components/DataCardLoading";
+import ChartLoading from "./_components/ChartLoading";
 
 const AnalyticsPage = async () => {
   // Protecting page with user authentication
@@ -33,5 +35,6 @@ export default AnalyticsPage;
 
 export const metadata: Metadata = {
   title: "User Analytics - Brainery Insights",
-  description: "Access detailed analytics on Brainery with insights into your total revenue and sales. Track course performance and user engagement through our intuitive charts and data visualizations.",
+  description:
+    "Access detailed analytics on Brainery with insights into your total revenue and sales. Track course performance and user engagement through our intuitive charts and data visualizations.",
 };
