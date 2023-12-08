@@ -35,6 +35,6 @@ export default async function Dashboard() {
 }
 
 export const metadata: Metadata = {
-  title: "Brainery - Portfolio Project",
+  title: "Brainery Dashboard",
   description: "Brainery, a portfolio project, showcases an online learning platform concept where users can explore and share educational courses. Designed to demonstrate web development skills, it features a range of subjects for both professional and personal learning interests.",
 };
