@@ -47,6 +47,7 @@ import { ChevronDown, Loader2, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface WithId {
   id: string;

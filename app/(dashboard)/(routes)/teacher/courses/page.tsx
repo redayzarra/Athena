@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/Columns";
 import { Metadata } from "next";
+import { DataTableLoading } from "./_components/DataTableLoading";
 
 const CoursesPage = async () => {
   // Protecting the page with user authentication
