@@ -1,11 +1,9 @@
 import getAnalytics from "@/actions/getAnalytics";
 import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import DataCard from "./_components/DataCard";
-import Chart from "./_components/Chart";
 import { Metadata } from "next";
-import DataCardLoading from "./_components/DataCardLoading";
-import ChartLoading from "./_components/ChartLoading";
+import { redirect } from "next/navigation";
+import Chart from "./_components/Chart";
+import DataCard from "./_components/DataCard";
 
 const AnalyticsPage = async () => {
   // Protecting page with user authentication
