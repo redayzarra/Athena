@@ -18,6 +18,15 @@ module.exports = withUt({
       },
     },
     extend: {
+      fontFamily: {
+        // Define Amandine font family
+        amandine: ['"amandine"', "sans-serif"],
+      },
+      fontWeight: {
+        // Map font weights to the Amandine font
+        normal: "400",
+        bold: "700",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
