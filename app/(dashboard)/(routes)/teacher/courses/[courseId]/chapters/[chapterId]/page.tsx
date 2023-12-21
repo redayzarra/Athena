@@ -155,5 +155,6 @@ export default ChapterIdPage;
 
 export const metadata: Metadata = {
   title: "Chapter Management",
-  description: "Edit and manage your course chapters with ease on Brainery. Customize chapter content, settings, and access options, ensuring each chapter is tailored to your teaching style and student needs.",
+  description:
+    "Edit and manage your course chapters with ease on Athena. Customize chapter content, settings, and access options, ensuring each chapter is tailored to your teaching style and student needs.",
 };

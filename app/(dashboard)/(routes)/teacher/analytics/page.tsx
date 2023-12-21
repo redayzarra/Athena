@@ -32,7 +32,7 @@ const AnalyticsPage = async () => {
 export default AnalyticsPage;
 
 export const metadata: Metadata = {
-  title: "User Analytics - Brainery Insights",
+  title: "User Analytics - Athena Insights",
   description:
-    "Access detailed analytics on Brainery with insights into your total revenue and sales. Track course performance and user engagement through our intuitive charts and data visualizations.",
+    "Access detailed analytics on Athena with insights into your total revenue and sales. Track course performance and user engagement through our intuitive charts and data visualizations.",
 };

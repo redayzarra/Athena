@@ -174,5 +174,5 @@ export default CourseIdPage;
 
 export const metadata: Metadata = {
   title: "Edit Course",
-  description: "Manage and customize your course details on Brainery. Edit course content, set pricing, update categories, and manage resources, all from a user-friendly teacher dashboard.",
+  description: "Manage and customize your course details on Athena. Edit course content, set pricing, update categories, and manage resources, all from a user-friendly teacher dashboard.",
 };

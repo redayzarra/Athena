@@ -3,11 +3,9 @@ import CoursesList from "@/components/CoursesList";
 import SearchInput from "@/components/SearchInput";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Categories from "./_components/Categories";
-import { Metadata } from "next";
-import CategoriesLoading from "./_components/CategoriesLoading";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   searchParams: {
@@ -58,7 +56,7 @@ const SearchPage = async ({ searchParams }: Props) => {
 export default SearchPage;
 
 export const metadata: Metadata = {
-  title: "Explore Courses - Brainery Search",
+  title: "Explore Courses - Athena Search",
   description:
-    "Discover and explore a diverse range of courses on Brainery. Whether you're deepening professional skills or pursuing personal interests, our search feature helps you find the perfect course tailored to your needs.",
+    "Discover and explore a diverse range of courses on Athena. Whether you're deepening professional skills or pursuing personal interests, our search feature helps you find the perfect course tailored to your needs.",
 };

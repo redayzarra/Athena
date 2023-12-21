@@ -38,5 +38,5 @@ export default CoursesPage;
 
 export const metadata: Metadata = {
   title: "My Courses",
-  description: "Manage and view your courses on Brainery. The dashboard provides a comprehensive view of your courses, organized in a user-friendly format for easy access and management.",
+  description: "Manage and view your courses on Athena. The dashboard provides a comprehensive view of your courses, organized in a user-friendly format for easy access and management.",
 };

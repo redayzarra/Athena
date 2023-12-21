@@ -120,5 +120,5 @@ export default ChapterIdPage;
 export const metadata: Metadata = {
   title: "Chapter Details",
   description:
-    "Dive into detailed chapter content on Brainery. Access video lessons, downloadable resources, and chapter summaries. Track your progress and move seamlessly to the next chapter for a continuous learning experience.",
+    "Dive into detailed chapter content on Athena. Access video lessons, downloadable resources, and chapter summaries. Track your progress and move seamlessly to the next chapter for a continuous learning experience.",
 };
