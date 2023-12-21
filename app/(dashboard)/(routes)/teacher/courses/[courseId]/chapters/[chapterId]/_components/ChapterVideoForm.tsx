@@ -103,7 +103,7 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: Props) => {
             />
           </div>
           <p className="text-xs mt-2 text-muted-foreground font-bold">
-            Add your chapter's main video content here
+            Add your chapter&apos;s main video content here
           </p>
         </div>
       ) : !initialData.videoUrl ? (
