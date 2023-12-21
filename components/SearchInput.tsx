@@ -34,7 +34,7 @@ export const SearchInput = () => {
   }, [debouncedValue, currentCategory, router, pathname]);
 
   return (
-    <div className="relative flex">
+    <div className="relative flex mr-3">
       <Search className="h-5 w-5 absolute top-3 left-3 text-primary" />
       <Input
         value={value}

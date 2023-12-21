@@ -2,14 +2,17 @@ import { ConfettiProvider } from "@/components/ConfettiProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Inter, Roboto } from "next/font/google";
+import { Libre_Baskerville, Roboto } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 
-const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "700", "900"],
+});
+const libre = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-libre",
 });
 
 export default function RootLayout({
@@ -20,10 +23,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <Head>
-          <link rel="stylesheet" href="https://use.typekit.net/ton7bpn.css" />
-        </Head>
-        <body className={roboto.className}>
+        <body className={`${roboto.className} ${libre.variable}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
