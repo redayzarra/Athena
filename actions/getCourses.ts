@@ -9,7 +9,7 @@ export type CourseWithCatPro = Course & {
 };
 
 type GetCourses = {
-  userId: string;
+  userId?: string;
   title?: string;
   categoryId?: string;
 };
@@ -22,7 +22,7 @@ const getCourses = async ({
   try {
     const courses = await db.course.findMany({
       where: {
-        userId,
+        ...(userId && { userId }),
         isPublished: true,
         title: {
           contains: title,
@@ -59,10 +59,12 @@ const getCourses = async ({
           };
         }
 
-        const progressPercentage = await getProgress({
-          userId,
-          courseId: course.id,
-        });
+        const progressPercentage = userId
+          ? await getProgress({
+              userId,
+              courseId: course.id,
+            })
+          : null;
 
         return {
           ...course,

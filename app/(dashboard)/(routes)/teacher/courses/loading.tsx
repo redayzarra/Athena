@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { DataTableLoading } from "./_components/DataTableLoading";
 
 const LoadingCoursesPage =  () => {
