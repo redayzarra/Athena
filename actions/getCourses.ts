@@ -3,7 +3,7 @@ import { Category, Course } from "@prisma/client";
 import { db } from "@/lib/db";
 import getProgress from "./getProgress";
 
-type CourseWithProgressWithCategory = Course & {
+export type CourseWithCatPro = Course & {
   category: Category | null;
   chapters: { id: string }[];
   progress: number | null;
@@ -15,11 +15,11 @@ type GetCourses = {
   categoryId?: string;
 };
 
-export const getCourses = async ({
+const getCourses = async ({
   userId,
   title,
   categoryId,
-}: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
+}: GetCourses): Promise<CourseWithCatPro[]> => {
   try {
     const courses = await db.course.findMany({
       where: {
@@ -50,7 +50,7 @@ export const getCourses = async ({
       },
     });
 
-    const coursesWithProgress: CourseWithProgressWithCategory[] =
+    const coursesWithProgress: CourseWithCatPro[] =
       await Promise.all(
         courses.map(async (course) => {
           if (course.purchases.length === 0) {
@@ -78,3 +78,5 @@ export const getCourses = async ({
     return [];
   }
 };
+
+export default getCourses;

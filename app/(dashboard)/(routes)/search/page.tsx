@@ -34,6 +34,7 @@ const SearchPage = async ({ searchParams }: Props) => {
   const categoryId = category ? category.id : undefined;
 
   const courses = await getCourses({
+    userId, 
     title: searchParams.title,
     categoryId,
   });
