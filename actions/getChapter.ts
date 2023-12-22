@@ -24,8 +24,8 @@ export const getChapter = async ({
 
     const course = await db.course.findUnique({
       where: {
-        id: courseId,
         isPublished: true,
+        id: courseId,
       },
       select: {
         price: true,
@@ -43,39 +43,38 @@ export const getChapter = async ({
       throw new Error("Chapter or course not found");
     }
 
-    // Allow attachments to be fetched for free chapters or if the user has made a purchase
+    let muxData = null;
     let attachments: Attachment[] = [];
-    if (chapter.isFree || purchase) {
+    let nextChapter: Chapter | null = null;
+
+    if (purchase) {
       attachments = await db.attachment.findMany({
         where: {
-          courseId: courseId, 
+          courseId: courseId,
         },
       });
     }
 
-    // MuxData should be accessible for free chapters or if the user has made a purchase
-    let muxData = null;
     if (chapter.isFree || purchase) {
       muxData = await db.muxData.findUnique({
         where: {
           chapterId: chapterId,
         },
       });
-    }
 
-    // Fetch the next chapter details irrespective of purchase status
-    let nextChapter: Chapter | null = await db.chapter.findFirst({
-      where: {
-        courseId: courseId,
-        isPublished: true,
-        position: {
-          gt: chapter.position,
+      nextChapter = await db.chapter.findFirst({
+        where: {
+          courseId: courseId,
+          isPublished: true,
+          position: {
+            gt: chapter?.position,
+          },
         },
-      },
-      orderBy: {
-        position: "asc",
-      },
-    });
+        orderBy: {
+          position: "asc",
+        },
+      });
+    }
 
     const userProgress = await db.userProgress.findUnique({
       where: {

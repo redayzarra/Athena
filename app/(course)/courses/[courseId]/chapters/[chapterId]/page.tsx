@@ -18,7 +18,6 @@ const ChapterIdPage = async ({
   // Protecting with user authentication
   const { userId } = auth();
   if (!userId) {
-    console.log("Can't get userId from ChapterIdPage");
     return redirect("/");
   }
 
