@@ -33,7 +33,7 @@
 - **Frontend**: Developed using Next.js 14, React, TypeScript, and Tailwind CSS for a responsive and interactive user interface.
 - **Backend**: Built with Prisma for efficient database management, and Sentry for real-time error tracking.
 - **Database**: Utilizes MySQL for reliable data storage.
-- **Additional Tools**: Incorporates Stripe for payment processing, and Shadcn-Ui for enhanced UI components.
+- **Additional Tools**: Incorporates Stripe for payment processing, and Shadcn-Ui for enhanced UI components. Sentry for logging and alerts.
 
 ## Setup and Installation
 
