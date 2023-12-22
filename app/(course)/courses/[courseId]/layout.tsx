@@ -24,7 +24,6 @@ const CourseLayout = async ({
 
   const course = await db.course.findUnique({
     where: {
-      userId,
       id: courseId,
     },
     include: {

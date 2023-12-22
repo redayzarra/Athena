@@ -39,7 +39,6 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter || !course) {
-    console.log("Wasn't able to get course or chapter from CourseIdPage");
     return redirect("/");
   }
 
