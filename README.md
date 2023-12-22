@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Athena: Learning Platform
 
-## Getting Started
+**Athena** is an innovative learning platform, inspired by popular sites like Udemy and Coursera. It allows users to both purchase and sell courses, facilitating a dynamic educational environment. This project was developed during a course by CodeWithAntonio, using a modern tech stack including Next.js 14, React, TypeScript, Prisma, Stripe, MySQL, and more.
 
-First, run the development server:
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Technology Stack](#technology-stack)
+4. [Setup and Installation](#setup-and-installation)
+5. [Usage and Navigation](#usage-and-navigation)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Athena** is designed to be a comprehensive platform for online learning, providing tools for both learners and educators. Users can easily create, manage, and enroll in courses, making education more accessible and engaging.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Course Creation and Management**: Users can create courses, manage content, set pricing, and update categories.
+- **Interactive Learning Dashboard**: A user-friendly interface for both students and teachers to navigate through courses and manage learning materials.
+- **Integrated Payment System**: Seamlessly integrated Stripe for secure and efficient financial transactions.
+- **Dynamic Course Catalog**: An extensive range of courses available for enrollment, catering to diverse educational needs.
+- **Real-Time Progress Tracking**: Track your learning progress in real-time.
+- **Community Interaction**: Engage with a community of learners and educators.
 
-## Learn More
+## Technology Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Developed using Next.js 14, React, TypeScript, and Tailwind CSS for a responsive and interactive user interface.
+- **Backend**: Built with Prisma for efficient database management, and Sentry for real-time error tracking.
+- **Database**: Utilizes MySQL for reliable data storage.
+- **Additional Tools**: Incorporates Stripe for payment processing, and Shadcn-Ui for enhanced UI components.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup and Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/Athena.git
+   ```
 
-## Deploy on Vercel
+2. Navigate to the project directory:
+   ```bash
+   cd Athena
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage and Navigation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Navigate to the main page to browse available courses.
+- For course creators, use the intuitive course management dashboard to create and modify courses.
+- Learners can enroll in courses, track progress, and interact with course materials and community.
