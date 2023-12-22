@@ -1,5 +1,11 @@
 # Athena: Learning Platform
 
+<div align="center">
+
+![Athena](https://github.com/redayzarra/Athena/assets/113388793/b9e1a09b-a321-4b85-a688-bce235b1275f)
+
+</div>
+
 **Athena** is an innovative learning platform, inspired by popular sites like Udemy and Coursera. It allows users to both purchase and sell courses, facilitating a dynamic educational environment. This project was developed during a course by CodeWithAntonio, using a modern tech stack including Next.js 14, React, TypeScript, Prisma, Stripe, MySQL, and more.
 
 ## Table of Contents
