@@ -20,6 +20,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   });
 
   if (!course) {
+    console.log("Can't get course from CourseIdPage");
     return redirect("/");
   }
 

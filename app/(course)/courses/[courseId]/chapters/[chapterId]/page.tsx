@@ -18,6 +18,7 @@ const ChapterIdPage = async ({
   // Protecting with user authentication
   const { userId } = auth();
   if (!userId) {
+    console.log("Can't get userId from ChapterIdPage");
     return redirect("/");
   }
 
@@ -39,6 +40,7 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter || !course) {
+    console.log("Wasn't able to get course or chapter from CourseIdPage");
     return redirect("/");
   }
 
