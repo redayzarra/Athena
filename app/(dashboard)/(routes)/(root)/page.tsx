@@ -16,20 +16,23 @@ export default async function Dashboard() {
   const { completedCourses, inProgressCourses } = await getDashboard(userId);
 
   return (
-    <div className="p-6 space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <InfoCard
-          icon={Clock}
-          label="In Progress"
-          numberOfItems={inProgressCourses.length}
-        />
-        <InfoCard
-          icon={CheckCircle}
-          label="Completed"
-          numberOfItems={completedCourses.length}
-        />
+    <div className="space-y-6">
+      <h1 className="text-5xl font-black">Your Courses</h1>
+      <div className="p-6 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <InfoCard
+            icon={Clock}
+            label="In Progress"
+            numberOfItems={inProgressCourses.length}
+          />
+          <InfoCard
+            icon={CheckCircle}
+            label="Completed"
+            numberOfItems={completedCourses.length}
+          />
+        </div>
+        <CoursesList items={[...inProgressCourses, ...completedCourses]} />
       </div>
-      <CoursesList items={[...inProgressCourses, ...completedCourses]} />
     </div>
   );
 }
