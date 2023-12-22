@@ -1,28 +1,28 @@
-import { db } from "@/lib/db";
 import { Category, Course } from "@prisma/client";
+
+import { db } from "@/lib/db";
 import getProgress from "./getProgress";
 
-export type CourseWithCatPro = Course & {
+type CourseWithProgressWithCategory = Course & {
   category: Category | null;
   chapters: { id: string }[];
   progress: number | null;
 };
 
 type GetCourses = {
-  userId?: string;
+  userId: string;
   title?: string;
   categoryId?: string;
 };
 
-const getCourses = async ({
+export const getCourses = async ({
   userId,
   title,
   categoryId,
-}: GetCourses): Promise<CourseWithCatPro[]> => {
+}: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
   try {
     const courses = await db.course.findMany({
       where: {
-        ...(userId && { userId }),
         isPublished: true,
         title: {
           contains: title,
@@ -50,36 +50,31 @@ const getCourses = async ({
       },
     });
 
-    const courseWithPro: CourseWithCatPro[] = await Promise.all(
-      courses.map(async (course) => {
-        if (course.purchases.length === 0) {
+    const coursesWithProgress: CourseWithProgressWithCategory[] =
+      await Promise.all(
+        courses.map(async (course) => {
+          if (course.purchases.length === 0) {
+            return {
+              ...course,
+              progress: null,
+            };
+          }
+
+          const progressPercentage = await getProgress({
+            userId,
+            courseId: course.id,
+          });
+
           return {
             ...course,
-            progress: null,
+            progress: progressPercentage,
           };
-        }
+        })
+      );
 
-        const progressPercentage = userId
-          ? await getProgress({
-              userId,
-              courseId: course.id,
-            })
-          : null;
-
-        return {
-          ...course,
-          progress: progressPercentage,
-        };
-      })
-    );
-
-    return courseWithPro;
-
-    // Error handling
+    return coursesWithProgress;
   } catch (error) {
-    console.log("GET_COURSES", error);
+    console.log("[GET_COURSES]", error);
     return [];
   }
 };
-
-export default getCourses;
